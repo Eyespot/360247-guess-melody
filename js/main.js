@@ -26,6 +26,12 @@
   const applicationContainer = document.querySelector(`.app`);
   const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section.main`));
 
+  {
+    const temp = screens[1];
+    screens[1] = screens[2];
+    screens[2] = temp;
+  }
+
   let currentScreen = document.querySelector(`section.main`);
 
   const changeScreen = (screenNumber) => {
