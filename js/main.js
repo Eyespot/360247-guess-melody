@@ -27,9 +27,9 @@
   const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section.main`));
 
   {
-    const temp = screens[1];
+    const swap = screens[1];
     screens[1] = screens[2];
-    screens[2] = temp;
+    screens[2] = swap;
   }
 
   let currentScreen = document.querySelector(`section.main`);
