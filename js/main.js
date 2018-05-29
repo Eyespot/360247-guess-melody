@@ -1,9 +1,9 @@
 'use strict';
 
-(function () {
+(() => {
   const RIGHT_ARROW = 39;
   const LEFT_ARROW = 37;
-  const INITIAL_SCREEN = 0;
+  const INITIAL_SCREEN_INDEX = 0;
   const ARROWS_BUTTONS_TEMPLATE = `
 <div class="arrows__wrap">
 <style>
@@ -40,9 +40,9 @@
     currentScreen = newScreen;
   };
 
-  changeScreen(INITIAL_SCREEN);
+  changeScreen(INITIAL_SCREEN_INDEX);
 
-  let currentScreenIndex = 0;
+  let currentScreenIndex = INITIAL_SCREEN_INDEX;
 
   const selectScreen = (index) => {
     index = index < 0 ? screens.length - 1 : index;
