@@ -26,13 +26,13 @@
   const applicationContainer = document.querySelector(`.app`);
   const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section.main`));
 
-  const swapScreensOrderAccordingRequirements = () => {
-    const swap = screens[1];
-    screens[1] = screens[2];
-    screens[2] = swap;
+  const swapArrayElements = (array, index1, index2) => {
+    const swap = array[index1];
+    array[index1] = array[index2];
+    array[index2] = swap;
   };
 
-  swapScreensOrderAccordingRequirements();
+  swapArrayElements(screens, 1, 2);
 
   let currentScreen = document.querySelector(`section.main`);
 
