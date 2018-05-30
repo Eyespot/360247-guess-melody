@@ -76,19 +76,11 @@
   applicationContainer.insertAdjacentHTML(`beforeEnd`, ARROWS_BUTTONS_TEMPLATE);
 
   const arrowsButtons = Array.from(document.querySelectorAll(`.arrows__btn`));
+  const leftArrowButton = arrowsButtons[0];
+  const rightArrowButton = arrowsButtons[1];
 
-  const onArrowButtonClick = (evt) => {
-    const target = evt.target;
-    if (target === arrowsButtons[0]) {
-      screenSteps.stepBackward();
+  const onArrowButtonClick = (action) => action;
 
-      return;
-    }
-
-    screenSteps.stepForward();
-  };
-
-  for (const button of arrowsButtons) {
-    button.addEventListener(`click`, onArrowButtonClick);
-  }
+  leftArrowButton.addEventListener(`click`, onArrowButtonClick(screenSteps.stepBackward));
+  rightArrowButton.addEventListener(`click`, onArrowButtonClick(screenSteps.stepForward));
 })();
