@@ -26,11 +26,13 @@
   const applicationContainer = document.querySelector(`.app`);
   const screens = Array.from(document.querySelector(`#templates`).content.querySelectorAll(`section.main`));
 
-  {
+  const swapScreensOrderAccordingRequirements = () => {
     const swap = screens[1];
     screens[1] = screens[2];
     screens[2] = swap;
-  }
+  };
+
+  swapScreensOrderAccordingRequirements();
 
   let currentScreen = document.querySelector(`section.main`);
 
@@ -79,8 +81,11 @@
   const leftArrowButton = arrowsButtons[0];
   const rightArrowButton = arrowsButtons[1];
 
-  const onArrowButtonClick = (action) => action;
+  leftArrowButton.addEventListener(`click`, () => {
+    screenSteps.stepBackward();
+  });
 
-  leftArrowButton.addEventListener(`click`, onArrowButtonClick(screenSteps.stepBackward));
-  rightArrowButton.addEventListener(`click`, onArrowButtonClick(screenSteps.stepForward));
+  rightArrowButton.addEventListener(`click`, () => {
+    screenSteps.stepForward();
+  });
 })();
