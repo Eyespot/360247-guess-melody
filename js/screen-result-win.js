@@ -1,4 +1,4 @@
-import getTemplateElement from "./stencil.js";
+import getTemplateElement from "./stencil";
 import {getGameRestartButton, onGameRestartButtonClick} from "./game-restart";
 
 const segment = `<section class="main main--result">

@@ -1,6 +1,6 @@
-import getTemplateElement from "./stencil.js";
-import showScreen from "./show-screen.js";
-import screenLevelArtist from "./screen-level-artist.js";
+import getTemplateElement from "./stencil";
+import showScreen from "./show-screen";
+import screenLevelArtist from "./screen-level-artist";
 
 const segment = `<section class="main main--welcome">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>

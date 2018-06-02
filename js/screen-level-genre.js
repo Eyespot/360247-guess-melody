@@ -1,10 +1,10 @@
-import getTemplateElement from "./stencil.js";
-import {getGameRestartButton, onGameRestartButtonClick} from "./game-restart.js";
-import {getRandomInteger} from "./utils.js";
-import showScreen from "./show-screen.js";
-import screenResultNoAttempts from "./screen-result-no-attempts.js";
-import screenResultTimeout from "./screen-result-timeout.js";
-import screenResultWin from "./screen-result-win.js";
+import getTemplateElement from "./stencil";
+import {getGameRestartButton, onGameRestartButtonClick} from "./game-restart";
+import {getRandomInteger} from "./utils";
+import showScreen from "./show-screen";
+import screenResultNoAttempts from "./screen-result-no-attempts";
+import screenResultTimeout from "./screen-result-timeout";
+import screenResultWin from "./screen-result-win";
 
 const RESULT_SCREENS = [screenResultNoAttempts, screenResultTimeout, screenResultWin];
 
@@ -103,22 +103,22 @@ gameRestartButton.addEventListener(`click`, () => {
 
 const genreForm = screenLevelGenre.querySelector(`.genre`);
 const genreFormCheckboxes = genreForm.querySelectorAll(`input[type=checkbox]`);
-const formSubmit = genreForm.querySelector(`.genre-answer-send`);
+const genreFormSubmit = genreForm.querySelector(`.genre-answer-send`);
 const onGenreAnswerChange = () => {
   for (const checkbox of genreFormCheckboxes) {
     if (checkbox.checked) {
-      formSubmit.disabled = false;
+      genreFormSubmit.disabled = false;
 
       return;
     }
   }
-  formSubmit.disabled = true;
+  genreFormSubmit.disabled = true;
 };
 genreForm.addEventListener(`change`, onGenreAnswerChange);
 
 const resetGenreForm = () => {
   genreForm.reset();
-  formSubmit.disabled = true;
+  genreFormSubmit.disabled = true;
 };
 
 const onFormSubmitClick = (event) => {
@@ -128,6 +128,6 @@ const onFormSubmitClick = (event) => {
   resetGenreForm();
 };
 
-formSubmit.addEventListener(`click`, onFormSubmitClick);
+genreFormSubmit.addEventListener(`click`, onFormSubmitClick);
 
 export default screenLevelGenre;

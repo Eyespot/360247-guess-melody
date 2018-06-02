@@ -1,6 +1,6 @@
 export default (segment) => {
-  const container = document.createElement(`div`);
+  const container = document.createElement(`template`);
   container.innerHTML = segment;
 
-  return container.children[0];
+  return container.content.children[0];
 };

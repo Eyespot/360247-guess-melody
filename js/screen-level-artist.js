@@ -1,7 +1,7 @@
-import getTemplateElement from "./stencil.js";
-import {getGameRestartButton, onGameRestartButtonClick} from "./game-restart.js";
-import showScreen from "./show-screen.js";
-import screenLevelGenre from "./screen-level-genre.js";
+import getTemplateElement from "./stencil";
+import {getGameRestartButton, onGameRestartButtonClick} from "./game-restart";
+import showScreen from "./show-screen";
+import screenLevelGenre from "./screen-level-genre";
 
 const segment = `<section class="main main--level main--level-artist">
     <a class="play-again play-again__wrap" href="#">
