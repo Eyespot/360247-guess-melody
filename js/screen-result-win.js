@@ -18,5 +18,3 @@ const gameRestartButton = getGameRestartButton(screenResultWin);
 gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
 export default screenResultWin;
-
-

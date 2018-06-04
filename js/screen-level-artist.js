@@ -81,5 +81,3 @@ for (const trigger of answerTriggers) {
 }
 
 export default screenLevelArtist;
-
-

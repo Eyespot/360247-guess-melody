@@ -15,5 +15,3 @@ const gameRestartButton = getGameRestartButton(screenResultNoAttempts);
 gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
 export default screenResultNoAttempts;
-
-
