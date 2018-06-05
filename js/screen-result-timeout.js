@@ -15,5 +15,3 @@ const gameRestartButton = getGameRestartButton(screenResultTimeout);
 gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
 export default screenResultTimeout;
-
-
