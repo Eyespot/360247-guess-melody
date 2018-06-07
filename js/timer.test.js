@@ -1,27 +1,30 @@
-import {expect} from "chai";
+import {assert} from "chai";
 import {createTimer} from "./timer";
 
 describe(`Check timer function`, () => {
-  it(`should throw an error on invalid input`, () => {
-    const errorMessage = `Timer input should be a natural number`;
-    expect(() => createTimer(0)).to.throw(Error, errorMessage);
-    expect(() => createTimer(-7)).to.throw(Error, errorMessage);
+  it(`should throw an error on not number input`, () => {
+    const error = () => createTimer(`Brendan Eich`);
+    const message = `Wrong input type. Number expected.`;
+    assert.throws(error, TypeError, message);
   });
-  it(`should be finished after 1 tick with 1 second on start`, () => {
-    const timer = createTimer(1);
 
-    timer.tick();
-    expect(timer.secondsLeft).to.equal(0);
-    expect(timer.finished).to.equal(true);
-    expect(timer.tick()).to.equal(`${timer.secondsLeft} seconds left`);
+  it(`should throw an error on not integer input`, () => {
+    const error = () => createTimer(3.1415926535);
+    const message = `Input time should be integer.`;
+    assert.throws(error, TypeError, message);
   });
-  it(`should be finished after 2 ticks with 2 seconds on start`, () => {
-    const timer = createTimer(2);
 
-    timer.tick();
-    timer.tick();
-    expect(timer.secondsLeft).to.equal(0);
-    expect(timer.finished).to.equal(true);
-    expect(timer.tick()).to.equal(`${timer.secondsLeft} seconds left`);
+  it(`should throw an error on negative input`, () => {
+    const error = () => createTimer(-3);
+    const message = `Wrong time value. Natural number expected.`;
+    assert.throws(error, RangeError, message);
+  });
+
+  it(`should carry given time value on start`, () => {
+    assert.equal(createTimer(7).time, 7);
+  });
+
+  it(`should carry ticking method`, () => {
+    assert.equal(createTimer(345).tick().tick().tick().time, 342);
   });
 });

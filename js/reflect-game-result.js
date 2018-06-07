@@ -17,8 +17,9 @@ export default (statistics, currentResult) => {
   const competitorsQuantity = statistics.length;
   const beatenPlayers = competitorsQuantity - currentPlace;
   const beatenPercent = Math.floor(beatenPlayers / competitorsQuantity * 100);
+  const declensionOfGamers = (competitorsQuantity > 1) ? `игроков` : `игрока`;
 
-  gameResult = `Вы заняли ${currentPlace} место из ${competitorsQuantity} игроков. Это лучше, чем у ${beatenPercent}% игроков`;
+  gameResult = `Вы заняли ${currentPlace} место из ${competitorsQuantity} ${declensionOfGamers}. Это лучше, чем у ${beatenPercent}% игроков`;
 
   return gameResult;
 };

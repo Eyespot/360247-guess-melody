@@ -3,9 +3,9 @@ import {getRandomInteger} from "./utils";
 import summarizePoints from "./summarize-points";
 
 const playerAnswerTemplates = {
-  incorrectAnswer: {correct: false, fast: false},
-  correctSlowAnswer: {correct: true, fast: false},
-  correctFastAnswer: {correct: true, fast: true}
+  incorrectAnswer: {isCorrect: false, isFast: false},
+  correctSlowAnswer: {isCorrect: true, isFast: false},
+  correctFastAnswer: {isCorrect: true, isFast: true}
 };
 
 const generateAnswer = (template) => {
@@ -14,10 +14,10 @@ const generateAnswer = (template) => {
 
     return answer;
   }
-  answer.correct = true;
+  answer.isCorrect = true;
   let answerTiming = getRandomInteger(0, 75);
   if (answerTiming < 30) {
-    answer.fast = true;
+    answer.isFast = true;
   }
 
   return answer;
@@ -33,15 +33,15 @@ const getRandomPlayerAnswers = (length) => {
   return answers;
 };
 
-const getSpecifiedPlayerAnswers = (correctSlow, correctFast, mistakes) => {
+const getSpecifiedPlayerAnswers = (correctSlowQuantity, correctFastQuantity, mistakesQuantity) => {
   const answers = [];
-  for (let i = 1; i <= correctSlow; i++) {
+  for (let i = 1; i <= correctSlowQuantity; i++) {
     answers.push(playerAnswerTemplates.correctSlowAnswer);
   }
-  for (let i = 1; i <= correctFast; i++) {
+  for (let i = 1; i <= correctFastQuantity; i++) {
     answers.push(playerAnswerTemplates.correctFastAnswer);
   }
-  for (let i = 1; i <= mistakes; i++) {
+  for (let i = 1; i <= mistakesQuantity; i++) {
     answers.push(playerAnswerTemplates.incorrectAnswer);
   }
 

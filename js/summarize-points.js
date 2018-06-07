@@ -6,8 +6,8 @@ export default (playerAnswers, playerLivesLeft) => {
 
   let points = 0;
   for (const answer of playerAnswers) {
-    if (answer.correct) {
-      points += answer.fast ? 2 : 1;
+    if (answer.isCorrect) {
+      points += answer.isFast ? 2 : 1;
     } else {
       points -= 2;
       playerLivesLeft--;

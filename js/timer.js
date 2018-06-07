@@ -1,27 +1,24 @@
 const TICKER_SIZE = 1;
 
-const timer = (seconds) => {
-  return {
-    secondsLeft: seconds,
-    finished: false,
-    tick() {
-      if (this.secondsLeft > 0) {
-        this.secondsLeft -= TICKER_SIZE;
-      }
-      if (this.secondsLeft === 0) {
-        this.finished = true;
-
-        return `${this.secondsLeft} seconds left`;
-      }
-      return true;
-    }
-  };
-};
-
-export const createTimer = (seconds) => {
-  if (seconds <= 0) {
-    throw new Error(`Timer input should be a natural number`);
+export const createTimer = (startTime) => {
+  if (typeof startTime !== `number`) {
+    throw new TypeError(`Wrong input type. Number expected.`);
   }
 
-  return timer(seconds);
+  if (!Number.isInteger(startTime)) {
+    throw new TypeError(`Input time should be integer.`);
+  }
+
+  if (startTime < 0) {
+    throw new RangeError(`Wrong time value. Natural number expected.`);
+  }
+
+  return Object.freeze(
+      {
+        time: startTime,
+        tick() {
+          return createTimer(startTime - TICKER_SIZE);
+        }
+      }
+  );
 };
