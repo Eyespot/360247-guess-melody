@@ -1,5 +1,5 @@
-import showScreen from "./show-screen";
-import screenWelcome from "./screen-welcome";
+import showScreen from "./basis/show-screen";
+import screenWelcome from "./static-screens/screen-welcome";
 
 document.addEventListener(`DOMContentLoaded`, () => {
   showScreen(screenWelcome);
