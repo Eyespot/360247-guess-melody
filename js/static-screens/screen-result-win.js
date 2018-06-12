@@ -1,7 +1,11 @@
 import getTemplateElement from "../basis/stencil";
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
+import summarizePoints from "../basis/summarize-points";
+import getCurrentStatistics from "../data/statistics";
+import {statistics} from "../data/statistics";
+import reflectResult from "../basis/reflect-game-result";
 
-const segment = `<section class="main main--result">
+const getSegment = () => `<section class="main main--result">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
 
     <h2 class="title">Вы настоящий меломан!</h2>
@@ -12,9 +16,15 @@ const segment = `<section class="main main--result">
     <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
   </section>`;
 
-const screenResultWin = getTemplateElement(segment);
+const screenResultWin = getTemplateElement(getSegment());
 
 const gameRestartButton = getGameRestartButton(screenResultWin);
 gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
 export default screenResultWin;
+export const getFinalResult = (state) => {
+  const points = summarizePoints(state.answers);
+  const currentStatistics = getCurrentStatistics(state, points);
+
+  return reflectResult(statistics, currentStatistics);
+};

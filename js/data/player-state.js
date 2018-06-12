@@ -13,6 +13,5 @@ export default {
     this.screen = initialState.screen;
     this.answers = [];
     this.statistics = [];
-    console.log(`playerState renewed`);
   }
 };

@@ -6,7 +6,7 @@ import gameData from "../data/game-data";
 import playerState from "../data/player-state";
 import getClockFace from "./components/clock-face";
 import getMistakes from "./components/mistakes";
-import changeLevel from "../basis/level-switcher";
+import changeLevel from "../basis/change-screen";
 
 export const getSegment = (state) =>
   `<section class="main main--level main--level-artist">

@@ -1,7 +1,7 @@
 import getTemplateElement from "../basis/stencil";
 import showScreen from "../basis/show-screen";
 import playerState from "../data/player-state";
-import changeLevel from "../basis/level-switcher";
+import changeLevel from "../basis/change-screen";
 import gameData from "../data/game-data";
 
 const segment = `<section class="main main--welcome">

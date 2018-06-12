@@ -5,7 +5,7 @@ import getClockFace from "./components/clock-face";
 import getMistakes from "./components/mistakes";
 import {getRandomInteger} from "../basis/utils";
 import showScreen from "../basis/show-screen";
-import changeLevel from "../basis/level-switcher";
+import changeLevel from "../basis/change-screen";
 import playerState from "../data/player-state";
 
 const getSegment = (state) => `<section class="main main--level main--level-genre">
@@ -18,20 +18,20 @@ const getSegment = (state) => `<section class="main main--level main--level-genr
     ${getMistakes(state)}
 
     <div class="main-wrap">
-      <h2 class="title">${gameData[2].question}</h2>
+      <h2 class="title">${gameData[state.screen].question}</h2>
       <form class="genre">
-        ${Array(gameData[2].options.length).fill().map((item, index) => `
+        ${Array(gameData[state.screen].options.length).fill().map((item, index) => `
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
-                <audio src="${gameData[2].options[index].source}" preload="auto"></audio>
+                <audio src="${gameData[state.screen].options[index].source}" preload="auto"></audio>
                 <button class="player-control player-control--pause" data-index="${index + 1}"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
                 </div>
               </div>
             </div>
-            <input type="checkbox" name="answer" value="${gameData[2].options[index].genre}" id="a-${index + 1}">
+            <input type="checkbox" name="answer" value="${gameData[state.screen].options[index].genre}" id="a-${index + 1}">
             <label class="genre-answer-check" for="a-${index + 1}"></label>
           </div>
         `).join(``)}

@@ -4,17 +4,18 @@ import resultScreenNoAttempts from "../static-screens/screen-result-no-attempts"
 import resultScreenWin from "../static-screens/screen-result-win";
 import showGenreLevel from "../dinamic-screens/screen-level-genre";
 import showArtistLevel from "../dinamic-screens/screen-level-artist";
+import {getFinalResult} from "../static-screens/screen-result-win";
 
-const QUESTIONS_QUANTITY = 4;
+const QUESTIONS_QUANTITY = 10;
 
 const screenSwitcher = (data, state) => {
   const level = state.screen;
-  console.log(level);
-  console.log(state.lives);
 
   if (!state.lives) {
     showScreen(resultScreenNoAttempts);
   } else if (state.screen === QUESTIONS_QUANTITY) {
+    const comparisonMessage = resultScreenWin.querySelector(`.main-comparison`);
+    comparisonMessage.textContent = getFinalResult(state);
     showScreen(resultScreenWin);
   } else if (!state.time) {
     showScreen(resultScreenTimeout);
