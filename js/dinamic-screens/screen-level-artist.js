@@ -7,6 +7,7 @@ import playerState from "../data/player-state";
 import getClockFace from "./components/clock-face";
 import getMistakes from "./components/mistakes";
 import changeLevel from "../basis/change-screen";
+import initializeAudio from "../dinamic-screens/components/audio";
 
 export const getSegment = (state) =>
   `<section class="main main--level main--level-artist">
@@ -22,7 +23,7 @@ export const getSegment = (state) =>
       <h2 class="title main-title">${gameData[state.screen].question}</h2>
       <div class="player-wrapper">
         <div class="player">
-          <audio>${gameData[state.screen].source}</audio>
+          <audio src="${gameData[state.screen].source}" preload="auto"></audio>
           <button class="player-control player-control--pause"></button>
           <div class="player-track">
             <span class="player-status"></span>
@@ -72,7 +73,7 @@ const showArtistLevel = (state) => {
     });
   }
 
-  // audioSwitcher();
+  initializeAudio(level, gameData, playerState);
 };
 
 export default showArtistLevel;

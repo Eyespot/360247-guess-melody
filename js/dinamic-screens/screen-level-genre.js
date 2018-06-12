@@ -7,6 +7,7 @@ import {getRandomInteger} from "../basis/utils";
 import showScreen from "../basis/show-screen";
 import changeLevel from "../basis/change-screen";
 import playerState from "../data/player-state";
+import initializeAudio from "../dinamic-screens/components/audio";
 
 const getSegment = (state) => `<section class="main main--level main--level-genre">
     <a class="play-again play-again__wrap" href="#">
@@ -25,7 +26,7 @@ const getSegment = (state) => `<section class="main main--level main--level-genr
             <div class="player-wrapper">
               <div class="player">
                 <audio src="${gameData[state.screen].options[index].source}" preload="auto"></audio>
-                <button class="player-control player-control--pause" data-index="${index + 1}"></button>
+                <button class="player-control" data-index="${index + 1}"></button>
                 <div class="player-track">
                   <span class="player-status"></span>
                 </div>
@@ -90,7 +91,7 @@ const showGenreLevel = (state) => {
     changeLevel(gameData, playerState);
   });
 
-  // audioSwitcher();
+  initializeAudio(level, gameData, playerState);
 };
 
 export default showGenreLevel;
