@@ -1,10 +1,10 @@
-import playerState from "../../data/player-state";
-
+// import playerState from "../../data/player-state";
+const SECONDS_IN_MINUTE = 60;
 const getTimeReflection = (time) => (time < 10) ? `0` + time : time;
 
 export default (state) => {
-  const minutes = Math.floor(state.time / 60);
-  const seconds = state.time % 60;
+  const minutes = Math.floor(state.time / SECONDS_IN_MINUTE);
+  const seconds = state.time % SECONDS_IN_MINUTE;
   return `<svg xmlns="http://www.w3.org/2000/svg" class="timer" viewBox="0 0 780 780">
       <circle
         cx="390" cy="390" r="370"

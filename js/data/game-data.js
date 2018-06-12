@@ -32,13 +32,13 @@ export default [
         isCorrect: true
       },
       {
-        artist: `Jingle Punks`,
-        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
+        artist: `Gunnar Olsen`,
+        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
         isCorrect: false
       },
       {
-        artist: `Gunnar Olsen`,
-        image: `https://f4.bcbits.com/img/0004181452_10.jpg`,
+        artist: `Jingle Punks`,
+        image: `https://i.vimeocdn.com/portrait/992615_300x300`,
         isCorrect: false
       }
     ]

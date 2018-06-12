@@ -1,25 +1,26 @@
 import getTemplateElement from "../basis/stencil";
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
-// import {getRandomInteger} from "../basis/utils";
-// import showScreen from "../basis/show-screen";
-// import screenResultNoAttempts from "../static-screens/screen-result-no-attempts";
-// import screenResultTimeout from "../static-screens/screen-result-timeout";
-// import screenResultWin from "../static-screens/screen-result-win";
-// import playerState from "../data/player-state";
 import gameData from "../data/game-data";
+import getClockFace from "./components/clock-face";
+import getMistakes from "./components/mistakes";
+import {getRandomInteger} from "../basis/utils";
+import showScreen from "../basis/show-screen";
+import changeLevel from "../basis/level-switcher";
+import playerState from "../data/player-state";
 
-// const RESULT_SCREENS = [screenResultNoAttempts, screenResultTimeout, screenResultWin];
-
-
-const segment = `<section class="main main--level main--level-genre">
+const getSegment = (state) => `<section class="main main--level main--level-genre">
     <a class="play-again play-again__wrap" href="#">
       <img class="play-again__img" src="/img/melody-logo-ginger.png" alt="logo" width="177" height="76">
     </a>
+    
+    ${getClockFace(state)}
+    
+    ${getMistakes(state)}
 
     <div class="main-wrap">
       <h2 class="title">${gameData[2].question}</h2>
       <form class="genre">
-        ${Array(gameData[2].options.length).fill().map((item, index) => (`
+        ${Array(gameData[2].options.length).fill().map((item, index) => `
           <div class="genre-answer">
             <div class="player-wrapper">
               <div class="player">
@@ -30,63 +31,66 @@ const segment = `<section class="main main--level main--level-genre">
                 </div>
               </div>
             </div>
-            <input type="checkbox" name="answer" value="${index + 1}" id="a-${index + 1}">
+            <input type="checkbox" name="answer" value="${gameData[2].options[index].genre}" id="a-${index + 1}">
             <label class="genre-answer-check" for="a-${index + 1}"></label>
           </div>
-        `)).join(``)};
-        <!--<div class="genre-answer">-->
-          <!--<div class="player-wrapper">-->
-            <!--<div class="player">-->
-              <!--<audio></audio>-->
-              <!--<button class="player-control player-control&#45;&#45;pause"></button>-->
-              <!--<div class="player-track">-->
-                <!--<span class="player-status"></span>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<input type="checkbox" name="answer" value="answer-1" id="a-1">-->
-          <!--<label class="genre-answer-check" for="a-1"></label>-->
-        <!--</div>-->
-
+        `).join(``)}
         <button class="genre-answer-send" type="submit" disabled>Ответить</button>
       </form>
     </div>
   </section>`;
 
-const screenLevelGenre = getTemplateElement(segment);
-const gameRestartButton = getGameRestartButton(screenLevelGenre);
-gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
-gameRestartButton.addEventListener(`click`, () => {
-  resetGenreForm();
-});
+const showGenreLevel = (state) => {
+  const level = getTemplateElement(getSegment(state));
+  showScreen(level);
 
-const genreForm = screenLevelGenre.querySelector(`.genre`);
-const genreFormCheckboxes = genreForm.querySelectorAll(`input[type=checkbox]`);
-const genreFormSubmit = genreForm.querySelector(`.genre-answer-send`);
-const onGenreAnswerChange = () => {
-  for (const checkbox of genreFormCheckboxes) {
-    if (checkbox.checked) {
-      genreFormSubmit.disabled = false;
-
-      return;
+  const genreForm = level.querySelector(`.genre`);
+  const genreFormCheckboxes = genreForm.querySelectorAll(`input[type=checkbox]`);
+  const genreFormSubmit = genreForm.querySelector(`.genre-answer-send`);
+  const checkedAnswers = new Set();
+  const onGenreAnswerChange = () => {
+    checkedAnswers.clear();
+    for (const checkbox of genreFormCheckboxes) {
+      if (checkbox.checked) {
+        checkedAnswers.add(checkbox.value);
+      }
     }
-  }
-  genreFormSubmit.disabled = true;
+    genreFormSubmit.disabled = (!checkedAnswers.size > 0);
+  };
+  genreForm.addEventListener(`change`, onGenreAnswerChange);
+
+  const resetGenreForm = () => {
+    genreForm.reset();
+    genreFormSubmit.disabled = true;
+  };
+
+  const gameRestartButton = getGameRestartButton(level);
+  gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+  gameRestartButton.addEventListener(`click`, () => {
+    resetGenreForm();
+  });
+
+  genreFormSubmit.addEventListener(`click`, (event) => {
+    event.preventDefault();
+    const isCorrect = checkedAnswers.size === 1 && checkedAnswers.has(gameData[state.screen].correctAnswer);
+    if (!isCorrect) {
+      state.answers.push({
+        isCorrect: false,
+        isFast: false
+      });
+      state.lives -= 1;
+    } else {
+      state.answers.push({
+        isCorrect: true,
+        isFast: (getRandomInteger(0, 1) > 0)
+      });
+    }
+    state.screen += 1;
+
+    changeLevel(gameData, playerState);
+  });
+
+  // audioSwitcher();
 };
-genreForm.addEventListener(`change`, onGenreAnswerChange);
 
-const resetGenreForm = () => {
-  genreForm.reset();
-  genreFormSubmit.disabled = true;
-};
-
-const onFormSubmitClick = (event) => {
-  event.preventDefault();
-  // const nextScreen = RESULT_SCREENS[2];
-  // showScreen(nextScreen);
-  resetGenreForm();
-};
-
-genreFormSubmit.addEventListener(`click`, onFormSubmitClick);
-
-export default screenLevelGenre;
+export default showGenreLevel;
