@@ -19,7 +19,6 @@ const changeScreen = (data, state) => {
     comparisonMessage.textContent = getFinalResult(state);
     const statisticsMessage = resultScreenWin.querySelector(`.main-stat`);
     statisticsMessage.innerHTML = getStatisticsMessage(state);
-    console.log(state);
     showScreen(resultScreenWin);
   } else if (!state.time) {
     showScreen(resultScreenTimeout);
