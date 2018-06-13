@@ -3,7 +3,6 @@ import {getRandomInteger} from "../basis/utils";
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
 import showScreen from "../basis/show-screen";
 import gameData from "../data/game-data";
-import playerState from "../data/player-state";
 import getClockFace from "./components/clock-face";
 import getMistakes from "./components/mistakes";
 import changeLevel from "../basis/change-screen";
@@ -69,11 +68,11 @@ const showArtistLevel = (state) => {
 
       state.screen += 1;
 
-      changeLevel(gameData, playerState);
+      changeLevel(gameData, state);
     });
   }
 
-  initializeAudio(level, gameData, playerState);
+  initializeAudio(level, gameData, state);
 };
 
 export default showArtistLevel;

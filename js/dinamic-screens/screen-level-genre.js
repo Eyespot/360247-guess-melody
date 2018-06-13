@@ -6,7 +6,6 @@ import getMistakes from "./components/mistakes";
 import {getRandomInteger} from "../basis/utils";
 import showScreen from "../basis/show-screen";
 import changeLevel from "../basis/change-screen";
-import playerState from "../data/player-state";
 import initializeAudio from "../dinamic-screens/components/audio";
 
 const getSegment = (state) => `<section class="main main--level main--level-genre">
@@ -88,10 +87,10 @@ const showGenreLevel = (state) => {
     }
     state.screen += 1;
 
-    changeLevel(gameData, playerState);
+    changeLevel(gameData, state);
   });
 
-  initializeAudio(level, gameData, playerState);
+  initializeAudio(level, gameData, state);
 };
 
 export default showGenreLevel;

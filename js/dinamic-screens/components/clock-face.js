@@ -1,4 +1,3 @@
-// import playerState from "../../data/player-state";
 const SECONDS_IN_MINUTE = 60;
 const getTimeReflection = (time) => (time < 10) ? `0` + time : time;
 

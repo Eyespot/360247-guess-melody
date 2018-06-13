@@ -14,9 +14,9 @@ export default (level, data, state) => {
     playingButton.classList.add(PLAYING_BUTTON_SELECTOR);
   }
 
-  players.forEach((it) => {
-    const track = it.querySelector(AUDIO_SELECTOR);
-    const button = it.querySelector(BUTTON_SELECTOR);
+  players.forEach((item) => {
+    const track = item.querySelector(AUDIO_SELECTOR);
+    const button = item.querySelector(BUTTON_SELECTOR);
     button.onclick = (event) => {
       const target = event.target;
       event.preventDefault();

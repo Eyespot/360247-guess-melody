@@ -1,3 +1,4 @@
+import gameSettings from "../data/game-settings";
 import showScreen from "./show-screen";
 import resultScreenTimeout from "../static-screens/screen-result-timeout";
 import resultScreenNoAttempts from "../static-screens/screen-result-no-attempts";
@@ -6,14 +7,14 @@ import showGenreLevel from "../dinamic-screens/screen-level-genre";
 import showArtistLevel from "../dinamic-screens/screen-level-artist";
 import {getFinalResult} from "../static-screens/screen-result-win";
 
-const QUESTIONS_QUANTITY = 10;
+const levelsQuantity = gameSettings.LEVELS_QUANTITY;
 
-const screenSwitcher = (data, state) => {
+const changeScreen = (data, state) => {
   const level = state.screen;
 
   if (!state.lives) {
     showScreen(resultScreenNoAttempts);
-  } else if (state.screen === QUESTIONS_QUANTITY) {
+  } else if (state.screen === levelsQuantity) {
     const comparisonMessage = resultScreenWin.querySelector(`.main-comparison`);
     comparisonMessage.textContent = getFinalResult(state);
     showScreen(resultScreenWin);
@@ -26,4 +27,4 @@ const screenSwitcher = (data, state) => {
   }
 };
 
-export default screenSwitcher;
+export default changeScreen;
