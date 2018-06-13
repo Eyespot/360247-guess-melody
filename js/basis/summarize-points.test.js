@@ -24,28 +24,37 @@ const generateAnswer = (template) => {
 };
 
 const getRandomPlayerAnswers = (length) => {
-  const answers = [];
+  const state = {
+    answers: [],
+    outcome: {
+      pointsReceived: 0
+    }
+  };
 
   for (let i = 0; i < length; i++) {
-    answers.push(generateAnswer(playerAnswerTemplates.incorrectAnswer));
+    state.answers.push(generateAnswer(playerAnswerTemplates.incorrectAnswer));
   }
 
-  return answers;
+  return state;
 };
 
 const getSpecifiedPlayerAnswers = (correctSlowQuantity, correctFastQuantity, mistakesQuantity) => {
-  const answers = [];
+  const state = {
+    answers: [],
+    outcome: {
+      pointsReceived: 0
+    }
+  };
   for (let i = 1; i <= correctSlowQuantity; i++) {
-    answers.push(playerAnswerTemplates.correctSlowAnswer);
+    state.answers.push(playerAnswerTemplates.correctSlowAnswer);
   }
   for (let i = 1; i <= correctFastQuantity; i++) {
-    answers.push(playerAnswerTemplates.correctFastAnswer);
+    state.answers.push(playerAnswerTemplates.correctFastAnswer);
   }
   for (let i = 1; i <= mistakesQuantity; i++) {
-    answers.push(playerAnswerTemplates.incorrectAnswer);
+    state.answers.push(playerAnswerTemplates.incorrectAnswer);
   }
-
-  return answers;
+  return state;
 };
 
 describe(`Check statistics`, () => {
