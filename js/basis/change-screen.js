@@ -5,7 +5,7 @@ import resultScreenNoAttempts from "../static-screens/screen-result-no-attempts"
 import resultScreenWin from "../static-screens/screen-result-win";
 import showGenreLevel from "../dinamic-screens/screen-level-genre";
 import showArtistLevel from "../dinamic-screens/screen-level-artist";
-import {getFinalResult} from "../static-screens/screen-result-win";
+import {getFinalResult, getStatisticsMessage} from "../static-screens/screen-result-win";
 
 const levelsQuantity = gameSettings.LEVELS_QUANTITY;
 
@@ -17,6 +17,9 @@ const changeScreen = (data, state) => {
   } else if (state.screen === levelsQuantity) {
     const comparisonMessage = resultScreenWin.querySelector(`.main-comparison`);
     comparisonMessage.textContent = getFinalResult(state);
+    const statisticsMessage = resultScreenWin.querySelector(`.main-stat`);
+    statisticsMessage.innerHTML = getStatisticsMessage(state);
+
     showScreen(resultScreenWin);
   } else if (!state.time) {
     showScreen(resultScreenTimeout);

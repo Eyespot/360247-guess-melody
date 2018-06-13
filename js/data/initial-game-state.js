@@ -8,6 +8,11 @@ export default Object.freeze(
       time: gameSettings.START_TIME,
       screen: START_SCREEN,
       answers: [],
-      statistics: []
+      outcome: {
+        timeSpend: {},
+        pointsReceived: 0,
+        quickPointsReceived: 0,
+        mistakes: 0
+      }
     }
 );
