@@ -27,18 +27,6 @@ describe(`Check reflecting game result`, () => {
     assert.isString(reflectGameResult(getStatistics(77, 5, 3, 97), getPlayerResult(4, 1, 1)));
   });
 
-  it(`should return player defeat string on lives left 0`, () => {
-    assert.deepEqual(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`, reflectGameResult(getStatistics(100, 20, 3, 97), getPlayerResult(20, 0, 97)));
-    assert.deepEqual(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`, reflectGameResult(getStatistics(5, 1, 1, 1), getPlayerResult(20, 0, 500)));
-    assert.deepEqual(`У вас закончились все попытки. Ничего, повезёт в следующий раз!`, reflectGameResult(getStatistics(100, 20, 3, 97), getPlayerResult(1, 0, 1)));
-  });
-
-  it(`should return player defeat string on time left 0`, () => {
-    assert.deepEqual(`Время вышло! Вы не успели отгадать все мелодии`, reflectGameResult(getStatistics(54, 11, 1, 97), getPlayerResult(20, 3, 0)));
-    assert.deepEqual(`Время вышло! Вы не успели отгадать все мелодии`, reflectGameResult(getStatistics(3, 2, 3, 11), getPlayerResult(5, 2, 0)));
-    assert.deepEqual(`Время вышло! Вы не успели отгадать все мелодии`, reflectGameResult(getStatistics(1, 55, 3, 97), getPlayerResult(1, 0, 0)));
-  });
-
   it(`should return first place win string with best time left`, () => {
     assert.deepEqual(`Вы заняли 1 место из 100 игроков. Это лучше, чем у 99% игроков`, reflectGameResult(getStatistics(99, 1, 1, 1), getPlayerResult(1, 1, 2)));
     assert.deepEqual(`Вы заняли 1 место из 5 игроков. Это лучше, чем у 80% игроков`, reflectGameResult(getStatistics(4, 1, 1, 1), getPlayerResult(1, 1, 8)));

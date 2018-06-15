@@ -1,6 +1,8 @@
-import getTemplateElement from "./stencil";
-import showScreen from "./show-screen";
-import screenLevelArtist from "./screen-level-artist";
+import getTemplateElement from "../basis/stencil";
+import showScreen from "../basis/show-screen";
+import getPlayerState from "../data/player-state";
+import changeLevel from "../basis/change-screen";
+import gameData from "../data/game-data";
 
 const segment = `<section class="main main--welcome">
     <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -14,13 +16,13 @@ const segment = `<section class="main main--welcome">
   </section>`;
 
 const screenWelcome = getTemplateElement(segment);
-const startButton = screenWelcome.querySelector(`.main-play`);
 
-const onStartButtonClick = (event) => {
-  event.preventDefault();
-  showScreen(screenLevelArtist);
+export default () => {
+  const playerState = getPlayerState();
+  showScreen(screenWelcome);
+  const startButton = screenWelcome.querySelector(`.main-play`);
+  startButton.onclick = (event) => {
+    event.preventDefault();
+    changeLevel(gameData, playerState);
+  };
 };
-
-startButton.addEventListener(`click`, onStartButtonClick);
-
-export default screenWelcome;

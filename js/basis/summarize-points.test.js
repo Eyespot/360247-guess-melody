@@ -24,41 +24,41 @@ const generateAnswer = (template) => {
 };
 
 const getRandomPlayerAnswers = (length) => {
-  const answers = [];
+  const state = {
+    answers: [],
+    outcome: {
+      pointsReceived: 0
+    }
+  };
 
   for (let i = 0; i < length; i++) {
-    answers.push(generateAnswer(playerAnswerTemplates.incorrectAnswer));
+    state.answers.push(generateAnswer(playerAnswerTemplates.incorrectAnswer));
   }
 
-  return answers;
+  return state;
 };
 
 const getSpecifiedPlayerAnswers = (correctSlowQuantity, correctFastQuantity, mistakesQuantity) => {
-  const answers = [];
+  const state = {
+    answers: [],
+    outcome: {
+      pointsReceived: 0
+    }
+  };
   for (let i = 1; i <= correctSlowQuantity; i++) {
-    answers.push(playerAnswerTemplates.correctSlowAnswer);
+    state.answers.push(playerAnswerTemplates.correctSlowAnswer);
   }
   for (let i = 1; i <= correctFastQuantity; i++) {
-    answers.push(playerAnswerTemplates.correctFastAnswer);
+    state.answers.push(playerAnswerTemplates.correctFastAnswer);
   }
   for (let i = 1; i <= mistakesQuantity; i++) {
-    answers.push(playerAnswerTemplates.incorrectAnswer);
+    state.answers.push(playerAnswerTemplates.incorrectAnswer);
   }
-
-  return answers;
+  return state;
 };
 
 describe(`Check statistics`, () => {
   describe(`Check points summarizing`, () => {
-    it(`should return -1 on user answers insufficient`, () => {
-      const answersInsufficient = getSpecifiedPlayerAnswers(2, 5, 0);
-      assert.equal(-1, summarizePoints(answersInsufficient, 3));
-    });
-
-    it(`should return -1 on 3 user mistakes`, () => {
-      const overmuchMistakes = getSpecifiedPlayerAnswers(2, 5, 3);
-      assert.equal(-1, summarizePoints(overmuchMistakes, 3));
-    });
 
     it(`should return 10 points on user 10 correct slow answers`, () => {
       const correctSlowAnswers = getSpecifiedPlayerAnswers(10, 0, 0);
@@ -93,11 +93,6 @@ describe(`Check statistics`, () => {
     it(`should return 15 points on user 5 correct slow answers, 5 correct fast answers`, () => {
       const answers550 = getSpecifiedPlayerAnswers(5, 5, 0);
       assert.equal(15, summarizePoints(answers550, 3));
-    });
-
-    it(`should return -1 or greater on random answers`, () => {
-      const randomPlayerAnswers = getRandomPlayerAnswers(10);
-      assert.isAtLeast(summarizePoints(randomPlayerAnswers, 3), -1);
     });
 
     it(`should return not NaN on random answers`, () => {

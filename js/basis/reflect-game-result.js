@@ -1,11 +1,4 @@
 export default (statistics, currentResult) => {
-  if (currentResult.timeLeft === 0) {
-
-    return `Время вышло! Вы не успели отгадать все мелодии`;
-  } else if (currentResult.livesLeft === 0) {
-
-    return `У вас закончились все попытки. Ничего, повезёт в следующий раз!`;
-  }
 
   statistics.push(currentResult);
   statistics.sort(compareStatistics);
