@@ -1,11 +1,15 @@
 import gameSettings from "../data/game-settings";
 import showScreen from "./show-screen";
-import resultScreenTimeout from "../static-screens/screen-result-timeout";
-import resultScreenNoAttempts from "../static-screens/screen-result-no-attempts";
-import resultScreenWin from "../static-screens/screen-result-win";
-import showGenreLevel from "../dinamic-screens/screen-level-genre";
-import showArtistLevel from "../dinamic-screens/screen-level-artist";
-import {getFinalResult, getStatisticsMessage} from "../static-screens/screen-result-win";
+import ResultTimeoutView from "../static-screens/result-timeout-view";
+import ResultNoAttemptsView from "../static-screens/result-no-attempts-view";
+import ResultWinView from "../static-screens/result-win-view";
+import ArtistLevelView from "../dinamic-screens/level-artist-view";
+import GenreLevelView from "../dinamic-screens/level-genre-view";
+import ClockView from "../dinamic-screens/components/clock-view";
+import MistakesView from "../dinamic-screens/components/mistakes-view";
+import {appendComponent} from "../basis/utils";
+import {getFinalResult, getStatisticsMessage} from "../basis/sumUp";
+import {onArtistAnswer, onGenreAnswerChange, onGenreFormSubmitClick} from "./screens-listeners";
 
 const levelsQuantity = gameSettings.LEVELS_QUANTITY;
 
@@ -13,19 +17,46 @@ const changeScreen = (data, state) => {
   const level = state.screen;
 
   if (!state.lives) {
-    showScreen(resultScreenNoAttempts);
-  } else if (state.screen === levelsQuantity) {
-    const comparisonMessage = resultScreenWin.querySelector(`.main-comparison`);
-    comparisonMessage.textContent = getFinalResult(state);
-    const statisticsMessage = resultScreenWin.querySelector(`.main-stat`);
-    statisticsMessage.innerHTML = getStatisticsMessage(state);
-    showScreen(resultScreenWin);
+    const screenNoAttemptsResult = new ResultNoAttemptsView();
+    showScreen(screenNoAttemptsResult.element);
   } else if (!state.time) {
-    showScreen(resultScreenTimeout);
+    const screenTimeoutResult = new ResultTimeoutView();
+    showScreen(screenTimeoutResult.element);
+  } else if (state.screen === levelsQuantity) {
+    const screenWinResult = new ResultWinView();
+    const comparisonMessage = screenWinResult.comparisonMessage;
+    comparisonMessage.textContent = getFinalResult(state);
+    const statisticsMessage = screenWinResult.statisticsMessage;
+    statisticsMessage.innerHTML = getStatisticsMessage(state);
+    showScreen(screenWinResult.element);
   } else if (data[level].gameType === `artist`) {
-    showArtistLevel(state);
+    const screenArtistLevel = new ArtistLevelView(data, state);
+    const clockFace = new ClockView(state.time);
+    const mistakesReflection = new MistakesView(state.lives);
+
+    screenArtistLevel.onArtistAnswerClick = (event) => {
+      onArtistAnswer(event, data, state);
+    };
+
+    showScreen(screenArtistLevel.element);
+    appendComponent(mistakesReflection.template);
+    appendComponent(clockFace.template);
   } else if (data[level].gameType === `genre`) {
-    showGenreLevel(state);
+    const screenGenreLevel = new GenreLevelView(data, state);
+    const clockFace = new ClockView(state.time);
+    const mistakesReflection = new MistakesView(state.lives);
+
+    screenGenreLevel.onGenreAnswerChange = () => {
+      onGenreAnswerChange(screenGenreLevel.genreFormCheckboxes, screenGenreLevel.genreFormSubmit);
+    };
+
+    screenGenreLevel.onGenreFormSubmitClick = () => {
+      onGenreFormSubmitClick(data, state);
+    };
+
+    showScreen(screenGenreLevel.element);
+    appendComponent(mistakesReflection.template);
+    appendComponent(clockFace.template);
   }
 };
 

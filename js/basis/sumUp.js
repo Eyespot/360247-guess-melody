@@ -1,30 +1,31 @@
-import getTemplateElement from "../basis/stencil";
-import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
-import summarizePoints from "../basis/summarize-points";
-import getCurrentStatistics from "../data/statistics";
-import {statistics} from "../data/statistics";
-import reflectResult from "../basis/reflect-game-result";
-import {calculateMinutes, getRandomInteger, getWordDeclension} from "../basis/utils";
 import gameSettings from "../data/game-settings";
+import reflectResult from "./reflect-game-result";
 import numerals from "../data/numerals";
+import {calculateMinutes, getRandomInteger, getWordDeclension} from "./utils";
+import {statistics} from "../data/statistics";
+import getCurrentStatistics from "../data/statistics";
 
-const getSegment = () => `<section class="main main--result">
-    <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
+const CORRECT_ANSWER_POINTS = 1;
+const CORRECT_FAST_ANSWER_POINTS = 2;
+const MISTAKE_PENALTY = 2;
 
-    <h2 class="title">Вы настоящий меломан!</h2>
-    <div class="main-stat">За&nbsp;3&nbsp;минуты и 25&nbsp;секунд
-      <br>вы&nbsp;набрали 12 баллов (8 быстрых)
-      <br>совершив 3 ошибки</div>
-    <span class="main-comparison"></span>
-    <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
-  </section>`;
+export const summarizePoints = (state) => {
 
-const screenResultWin = getTemplateElement(getSegment());
+  let points = 0;
+  for (const answer of state.answers) {
+    if (answer.isCorrect) {
+      points += answer.isFast ? CORRECT_FAST_ANSWER_POINTS : CORRECT_ANSWER_POINTS;
+      if (answer.isFast) {
+        state.outcome.quickPointsReceived++;
+      }
+    } else {
+      points -= MISTAKE_PENALTY;
+    }
+  }
 
-const gameRestartButton = getGameRestartButton(screenResultWin);
-gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+  return points;
+};
 
-export default screenResultWin;
 export const getFinalResult = (state) => {
   const points = summarizePoints(state);
   state.outcome.timeSpend = calculateMinutes(gameSettings.START_TIME - getRandomInteger(25, 250));
