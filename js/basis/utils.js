@@ -46,18 +46,3 @@ export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) =
     }
   }
 };
-
-// export const deepFreeze = (unit) => {
-//
-//   const propertyNames = Object.getOwnPropertyNames(unit);
-//
-//   propertyNames.forEach((name) => {
-//     const property = unit[name];
-//
-//     if (typeof property === `object` && property !== null) {
-//       deepFreeze(property);
-//     }
-//   });
-//
-//   return Object.freeze(unit);
-// };

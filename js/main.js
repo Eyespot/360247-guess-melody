@@ -21,7 +21,7 @@ export const goToWelcome = () => {
 };
 
 export const tracks = new Set();
-export const pictures = new Set();
+export const pictures = new Set(); // obernut v preload
 
 const preloadMedia = () => {
   for (const level of gameData) {
@@ -34,7 +34,7 @@ const preloadMedia = () => {
     }
   }
   for (const picture of pictures) {
-    const image = new Image();
+    const image = new Image(); // link rel preload
     image.src = picture;
   }
   for (const track of tracks) {

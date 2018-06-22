@@ -31,7 +31,7 @@ const changeScreen = (data, state) => {
     statisticsMessage.innerHTML = getStatisticsMessage(state);
     showScreen(screenWinResult.element);
   } else if (data[level].gameType === `artist`) {
-    const screenArtistLevel = new ArtistLevelView(data, state);
+    const screenArtistLevel = new ArtistLevelView(data[state.screen]);
     const clockFace = new ClockView(state.time);
     const mistakesReflection = new MistakesView(state.lives);
 
@@ -53,7 +53,7 @@ const changeScreen = (data, state) => {
     screenArtistLevel.reflectCorrectAnswerOnDevelopment();
     playFirstTrack(screenArtistLevel.firstTrack, screenArtistLevel.firstPlayButton, data[level]);
   } else if (data[level].gameType === `genre`) {
-    const screenGenreLevel = new GenreLevelView(data, state);
+    const screenGenreLevel = new GenreLevelView(data[state.screen]);
     const clockFace = new ClockView(state.time);
     const mistakesReflection = new MistakesView(state.lives);
 

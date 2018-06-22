@@ -5,20 +5,6 @@
 // import gameData from "../data/game-data";
 import ApplicationView from "../view/application-view";
 
-// const segment = ``;
-
-// const screenWelcome = getTemplateElement(segment);
-
-// export default () => {
-//   const playerState = getPlayerState();
-//   showScreen(screenWelcome);
-//   const startButton = screenWelcome.querySelector(`.main-play`);
-//   startButton.onclick = (event) => {
-//     event.preventDefault();
-//     changeLevel(gameData, playerState);
-//   };
-// };
-
 export default class WelcomeView extends ApplicationView {
 
   constructor() {
