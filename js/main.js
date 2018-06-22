@@ -46,6 +46,6 @@ export const goToWelcome = () => {
 document.addEventListener(`DOMContentLoaded`, () => {
   // preloadMedia();
   // window.addEventListener(`load`, () => {
-    goToWelcome();
+  goToWelcome();
   // });
 });
