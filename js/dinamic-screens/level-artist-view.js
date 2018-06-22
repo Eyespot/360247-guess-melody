@@ -2,7 +2,7 @@ import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-rest
 import ApplicationView from "../view/application-view";
 // import {tracks} from "../main";
 
-// const trackes = Array.from(preloadedTrackes);
+// const tracks = Array.from(tracks);
 // console.log(tracks);
 
 export default class ArtistView extends ApplicationView {
@@ -51,8 +51,9 @@ export default class ArtistView extends ApplicationView {
   reflectCorrectAnswerOnDevelopment() {
   }
 
-  // audioSwitcher() {
-  // }//
+  onPlayerButtonClick() {
+  }
+
   bind() {
     this.radio = this.element.querySelectorAll(`.main-answer-r`);
     this.labels = this.element.querySelectorAll(`.main-answer`);
@@ -62,5 +63,17 @@ export default class ArtistView extends ApplicationView {
 
     const gameRestartButton = getGameRestartButton(this.element);
     gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+
+    this.players = this.element.querySelectorAll(`.player`);
+    this.tracks = [];
+    this.playerButtons = [];
+    this.players.forEach((item) => {
+      this.tracks.push(item.querySelector(`audio`));
+      const button = item.querySelector(`button`);
+      this.playerButtons.push(button);
+      button.addEventListener(`click`, this.onPlayerButtonClick);
+    });
+    this.firstTrack = this.tracks[0];
+    this.firstPlayButton = this.playerButtons[0];
   }
 }

@@ -48,8 +48,9 @@ export default class GenreView extends ApplicationView {
   reflectCorrectAnswerOnDevelopment() {
   }
 
-  // audioSwitcher() {
-  // }//
+  onPlayerButtonClick() {
+  }
+
   bind() {
     this.genreForm = this.element.querySelector(`.genre`);
     this.genreFormSubmit = this.genreForm.querySelector(`.genre-answer-send`);
@@ -59,5 +60,17 @@ export default class GenreView extends ApplicationView {
     this.genreForm.addEventListener(`change`, this.onGenreAnswerChange);
     this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);
     this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+
+    this.players = this.element.querySelectorAll(`.player`);
+    this.tracks = [];
+    this.playerButtons = [];
+    this.players.forEach((item) => {
+      this.tracks.push(item.querySelector(`audio`));
+      const button = item.querySelector(`button`);
+      this.playerButtons.push(button);
+      button.addEventListener(`click`, this.onPlayerButtonClick);
+    });
+    this.firstTrack = this.tracks[0];
+    this.firstPlayButton = this.playerButtons[0];
   }
 }
