@@ -1,6 +1,5 @@
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
 import ApplicationView from "../view/application-view";
-import gameSettings from "../data/game-settings";
 // import {tracks} from "../main";
 
 // const trackes = Array.from(preloadedTrackes);
@@ -50,20 +49,14 @@ export default class ArtistView extends ApplicationView {
   }
 
   reflectCorrectAnswerOnDevelopment() {
-    if (gameSettings.IS_DEVELOPMENT_MODE) {
-      const inputs = Array.from(this.element.querySelectorAll(`.main-answer-r`));
-      const labels = this.element.querySelectorAll(`.main-answer`);
-      for (const input of inputs) {
-        if (input.value === `true`) {
-          labels[inputs.indexOf(input)].setAttribute(`style`, `font-weight:900;background-color:lightgreen;border-radius:15px`);
-        }
-      }
-    }
   }
 
   // audioSwitcher() {
   // }//
   bind() {
+    this.radio = this.element.querySelectorAll(`.main-answer-r`);
+    this.labels = this.element.querySelectorAll(`.main-answer`);
+
     const answersList = this.element.querySelector(`.main-list`);
     answersList.addEventListener(`click`, this.onArtistAnswerClick);
 

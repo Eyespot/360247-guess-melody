@@ -7,7 +7,7 @@ import ArtistLevelView from "../dinamic-screens/level-artist-view";
 import GenreLevelView from "../dinamic-screens/level-genre-view";
 import ClockView from "../dinamic-screens/components/clock-view";
 import MistakesView from "../dinamic-screens/components/mistakes-view";
-import {appendComponent} from "../basis/utils";
+import {appendComponent, reflectCorrectAnswerOnDevelopment} from "../basis/utils";
 import {getFinalResult, getStatisticsMessage} from "../basis/sumUp";
 import {onArtistAnswer, onGenreAnswerChange, onGenreFormSubmitClick} from "./screens-listeners";
 
@@ -38,11 +38,14 @@ const changeScreen = (data, state) => {
       onArtistAnswer(event, data, state);
     };
 
-    screenArtistLevel.reflectCorrectAnswerOnDevelopment();
+    screenArtistLevel.reflectCorrectAnswerOnDevelopment = () => {
+      reflectCorrectAnswerOnDevelopment(screenArtistLevel.radio, screenArtistLevel.labels, `true`, `font-weight:900;background-color:lightgreen;border-radius:15px`);
+    };
 
     showScreen(screenArtistLevel.element);
     appendComponent(mistakesReflection.template);
     appendComponent(clockFace.template);
+    screenArtistLevel.reflectCorrectAnswerOnDevelopment();
   } else if (data[level].gameType === `genre`) {
     const screenGenreLevel = new GenreLevelView(data, state);
     const clockFace = new ClockView(state.time);
@@ -56,11 +59,14 @@ const changeScreen = (data, state) => {
       onGenreFormSubmitClick(data, state);
     };
 
-    screenGenreLevel.reflectCorrectAnswerOnDevelopment();
+    screenGenreLevel.reflectCorrectAnswerOnDevelopment = () => {
+      reflectCorrectAnswerOnDevelopment(screenGenreLevel.genreFormCheckboxes, screenGenreLevel.labels, data[level].correctAnswer, `background-color:lightgreen;border-radius:5px`);
+    };
 
     showScreen(screenGenreLevel.element);
     appendComponent(mistakesReflection.template);
     appendComponent(clockFace.template);
+    screenGenreLevel.reflectCorrectAnswerOnDevelopment();
   }
 };
 

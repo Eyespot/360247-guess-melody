@@ -1,6 +1,5 @@
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
 import ApplicationView from "../view/application-view";
-import gameSettings from "../data/game-settings";
 
 export default class GenreView extends ApplicationView {
   constructor(data, state) {
@@ -47,15 +46,6 @@ export default class GenreView extends ApplicationView {
   }
 
   reflectCorrectAnswerOnDevelopment() {
-    if (gameSettings.IS_DEVELOPMENT_MODE) {
-      const inputs = Array.from(this.element.querySelectorAll(`input[type=checkbox]`));// temporary
-      const labels = this.element.querySelectorAll(`.genre-answer-check`);
-      for (const input of inputs) {
-        if (input.value === this.gameData[this.level].correctAnswer) {
-          labels[inputs.indexOf(input)].setAttribute(`style`, `background-color:lightgreen;border-radius:5px`);
-        }
-      }
-    }
   }
 
   // audioSwitcher() {
@@ -64,6 +54,7 @@ export default class GenreView extends ApplicationView {
     this.genreForm = this.element.querySelector(`.genre`);
     this.genreFormSubmit = this.genreForm.querySelector(`.genre-answer-send`);
     this.genreFormCheckboxes = this.genreForm.querySelectorAll(`input[type=checkbox]`);
+    this.labels = this.genreForm.querySelectorAll(`.genre-answer-check`);
     this.gameRestartButton = getGameRestartButton(this.element);
     this.genreForm.addEventListener(`change`, this.onGenreAnswerChange);
     this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);

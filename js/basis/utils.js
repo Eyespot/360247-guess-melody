@@ -1,3 +1,5 @@
+import gameSettings from "../data/game-settings";
+
 const SECONDS_IN_MINUTE = 60;
 
 export const getRandomInteger = (min, max) => {
@@ -32,6 +34,17 @@ const getComponentDestination = () => {
 
 export const appendComponent = (component) => {
   getComponentDestination().insertAdjacentHTML(`afterEnd`, component);
+};
+
+export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) => {
+  if (gameSettings.IS_DEVELOPMENT_MODE) {
+    const answers = Array.from(inputs);
+    for (const input of answers) {
+      if (input.value === key) {
+        labels[answers.indexOf(input)].setAttribute(`style`, styles);
+      }
+    }
+  }
 };
 
 // export const deepFreeze = (unit) => {
