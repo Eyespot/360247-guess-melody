@@ -1,11 +1,17 @@
 import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
 import ApplicationView from "../view/application-view";
+import gameSettings from "../data/game-settings";
+// import {tracks} from "../main";
+
+// const trackes = Array.from(preloadedTrackes);
+// console.log(tracks);
 
 export default class ArtistView extends ApplicationView {
   constructor(data, state) {
     super();
     this.gameData = data;
     this.level = state.screen;
+    this.source = this.gameData[this.level].source;
   }
 
   get template() {
@@ -19,7 +25,7 @@ export default class ArtistView extends ApplicationView {
       <h2 class="title main-title">${this.gameData[this.level].question}</h2>
       <div class="player-wrapper">
         <div class="player">
-          <audio src="${this.gameData[this.level].source}" preload="auto"></audio>
+          <audio src="${this.source}" preload="auto"></audio>
           <button class="player-control player-control--pause"></button>
           <div class="player-track">
             <span class="player-status"></span>
@@ -41,6 +47,18 @@ export default class ArtistView extends ApplicationView {
   }
 
   onArtistAnswerClick() {
+  }
+
+  reflectCorrectAnswerOnDevelopment() {
+    if (gameSettings.IS_DEVELOPMENT_MODE) {
+      const inputs = Array.from(this.element.querySelectorAll(`.main-answer-r`));
+      const labels = this.element.querySelectorAll(`.main-answer`);
+      for (const input of inputs) {
+        if (input.value === `true`) {
+          labels[inputs.indexOf(input)].setAttribute(`style`, `font-weight:900;background-color:lightgreen;border-radius:15px`);
+        }
+      }
+    }
   }
 
   // audioSwitcher() {

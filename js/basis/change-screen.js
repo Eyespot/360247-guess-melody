@@ -38,6 +38,8 @@ const changeScreen = (data, state) => {
       onArtistAnswer(event, data, state);
     };
 
+    screenArtistLevel.reflectCorrectAnswerOnDevelopment();
+
     showScreen(screenArtistLevel.element);
     appendComponent(mistakesReflection.template);
     appendComponent(clockFace.template);
@@ -53,6 +55,8 @@ const changeScreen = (data, state) => {
     screenGenreLevel.onGenreFormSubmitClick = () => {
       onGenreFormSubmitClick(data, state);
     };
+
+    screenGenreLevel.reflectCorrectAnswerOnDevelopment();
 
     showScreen(screenGenreLevel.element);
     appendComponent(mistakesReflection.template);

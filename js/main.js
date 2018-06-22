@@ -20,16 +20,32 @@ export const goToWelcome = () => {
   };
 };
 
-document.addEventListener(`DOMContentLoaded`, () => {
-  goToWelcome();
-});
+// export const tracks = new Set();
+// export const pictures = new Set();
 
-// export default () => {
-//   const playerState = getPlayerState();
-//   showScreen(screenWelcome);
-//   const startButton = screenWelcome.querySelector(`.main-play`);
-//   startButton.onclick = (event) => {
-//     event.preventDefault();
-//     changeLevel(gameData, playerState);
-//   };
+// const preloadMedia = () => {
+//   for (const level of gameData) {
+//     for (const option of gameData[gameData.indexOf(level)].options) {
+//       if (option.hasOwnProperty(`image`)) {
+//         pictures.add(option.image);
+//       } else if (option.hasOwnProperty(`source`)) {
+//         tracks.add(option.source);
+//       }
+//     }
+//   }
+//   for (const picture of pictures) {
+//     const image = new Image();
+//     image.src = picture;
+//   }
+//   for (const track of tracks) {
+//     const audio = new Audio();
+//     audio.src = track;
+//   }
 // };
+
+document.addEventListener(`DOMContentLoaded`, () => {
+  // preloadMedia();
+  // window.addEventListener(`load`, () => {
+    goToWelcome();
+  // });
+});
