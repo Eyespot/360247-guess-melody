@@ -1,8 +1,3 @@
-// import getTemplateElement from "../basis/stencil";
-// import showScreen from "../basis/show-screen";
-// import getPlayerState from "../data/player-state";
-// import changeLevel from "../basis/change-screen";
-// import gameData from "../data/game-data";
 import ApplicationView from "../view/application-view";
 
 export default class WelcomeView extends ApplicationView {
