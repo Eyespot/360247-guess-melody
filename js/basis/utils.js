@@ -36,6 +36,10 @@ export const appendComponent = (component) => {
   getComponentDestination().insertAdjacentHTML(`afterEnd`, component);
 };
 
+export const replaceComponent = (component) => {
+  component.parentNode.replaceChild();
+};
+
 export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) => {
   if (gameSettings.IS_DEVELOPMENT_MODE) {
     const answers = Array.from(inputs);

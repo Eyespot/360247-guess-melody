@@ -8,11 +8,31 @@ import GenreLevelView from "../dinamic-screens/level-genre-view";
 import ClockView from "../dinamic-screens/components/clock-view";
 import MistakesView from "../dinamic-screens/components/mistakes-view";
 import {appendComponent, reflectCorrectAnswerOnDevelopment} from "../basis/utils";
-import {getFinalResult, getStatisticsMessage} from "../basis/sumUp";
+import {getFinalResult, getStatisticsMessage} from "./sum-up";
 import {onArtistAnswer, onGenreAnswerChange, onGenreFormSubmitClick} from "./screens-listeners";
 import {playFirstTrack, onPlayerButtonClick} from "../dinamic-screens/components/audio";
 
+const ONE_SECOND = 1000;
 const levelsQuantity = gameSettings.LEVELS_QUANTITY;
+
+let time;
+
+export const startTimer = (timer) => {
+  time = setTimeout(() => {
+    timer = timer.tick();
+    startTimer(timer);
+    console.log(timer);
+  }, ONE_SECOND);
+};
+
+const stopTimer = () => {
+  clearTimeout(time);
+};
+
+const updateTime = (currenTime) => {
+  const clockFace = new ClockView(currenTime);
+  appendComponent(clockFace.template);
+};
 
 const changeScreen = (data, state) => {
   const level = state.screen;
@@ -20,7 +40,7 @@ const changeScreen = (data, state) => {
   if (!state.lives) {
     const screenNoAttemptsResult = new ResultNoAttemptsView();
     showScreen(screenNoAttemptsResult.element);
-  } else if (!state.time) {
+  } else if (!state.timer) {
     const screenTimeoutResult = new ResultTimeoutView();
     showScreen(screenTimeoutResult.element);
   } else if (state.screen === levelsQuantity) {

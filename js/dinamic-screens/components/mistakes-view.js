@@ -1,4 +1,4 @@
-import initialGameState from "../../data/initial-game-state";
+import initialGameState from "../../data/game";
 import AbstractView from "../../view/application-view";
 
 const initialLives = initialGameState.lives;

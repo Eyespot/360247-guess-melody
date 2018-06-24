@@ -1,3 +1,3 @@
-import initialState from "./initial-game-state";
+import initialState from "./game";
 
 export default () => Object.assign({}, initialState);
