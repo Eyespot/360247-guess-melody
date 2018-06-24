@@ -1,4 +1,4 @@
-import WelcomeView from "./static-screens/welcomeView";
+import WelcomeView from "./view/static-views/welcomeView";
 import changeLevel from "./basis/change-screen";
 import showScreen from "./basis/show-screen";
 import gameData from "./data/game-data";
@@ -18,7 +18,7 @@ export const goToWelcome = () => {
   showScreen(welcomeScreen.element);
   welcomeScreen.onStartButtonClick = () => {
     changeLevel(gameData, playerState);
-    startTimer(playerState.timer);
+    // startTimer(playerState.timer);
   };
 };
 
