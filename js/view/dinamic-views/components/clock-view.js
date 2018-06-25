@@ -1,5 +1,5 @@
-import {calculateMinutes} from "../../basis/utils";
-import AbstractView from "../../view/application-view";
+import {calculateMinutes} from "../../../basis/utils";
+import AbstractView from "../../game-view";
 
 export default class ClockView extends AbstractView {
   constructor(time) {
@@ -16,7 +16,7 @@ export default class ClockView extends AbstractView {
       <circle
         cx="390" cy="390" r="370"
         class="timer-line"
-        style="filter: url(../..#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
+        style="filter: url(../../..#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center"></circle>
 
       <div class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
         <span class="timer-value-mins">${this.reflectTime(this.time.minutes)}</span>

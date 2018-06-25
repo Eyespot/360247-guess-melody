@@ -1,5 +1,5 @@
-import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
-import ApplicationView from "../view/application-view";
+import {getGameRestartButton, onGameRestartButtonClick} from "../../basis/game-restart";
+import ApplicationView from "../game-view";
 
 export default class ResultTimeoutView extends ApplicationView {
 

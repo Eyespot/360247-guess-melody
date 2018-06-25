@@ -1,8 +1,8 @@
 import {createTemplateElement} from "../basis/utils";
 
-export default class AbstractView {
+export default class GameView {
   constructor() {
-    if (new.target === AbstractView) {
+    if (new.target === GameView) {
       throw new Error(`Can't get any template`);
     }
   }

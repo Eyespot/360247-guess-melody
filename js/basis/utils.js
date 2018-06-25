@@ -1,6 +1,7 @@
 import gameSettings from "../data/game-settings";
 
-const SECONDS_IN_MINUTE = 60;
+const SECONDS_IN_ONE_MINUTE = 60;
+const MILLISEDONDS_IN_ONE_SECOND = 1000;
 
 export const getRandomInteger = (min, max) => {
   let random = min + Math.random() * (max + 1 - min);
@@ -10,8 +11,8 @@ export const getRandomInteger = (min, max) => {
 };
 
 export const calculateMinutes = (time) => {
-  const minutes = Math.floor(time / SECONDS_IN_MINUTE);
-  const seconds = time % SECONDS_IN_MINUTE;
+  const minutes = Math.floor(time / SECONDS_IN_ONE_MINUTE);
+  const seconds = time % SECONDS_IN_ONE_MINUTE;
 
   return {minutes, seconds};
 };
@@ -28,12 +29,8 @@ export const createTemplateElement = (segment = ``) => {
 };
 
 const applicationContainer = document.querySelector(`.app`);
-const getComponentDestination = () => {
+export const getComponentDestination = () => {
   return applicationContainer.firstElementChild.firstElementChild;
-};
-
-export const appendComponent = (component) => {
-  getComponentDestination().insertAdjacentHTML(`afterEnd`, component);
 };
 
 export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) => {
@@ -45,4 +42,22 @@ export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) =
       }
     }
   }
+};
+
+let time;
+
+export const startTimer = (timer) => {
+  time = setTimeout(() => {
+    timer = timer.tick();
+    startTimer(timer);
+    // console.log(timer.time);
+  }, MILLISEDONDS_IN_ONE_SECOND);
+};
+
+export const stopTimer = () => {
+  clearTimeout(time);
+};
+
+export const updateClock = () => {
+
 };
