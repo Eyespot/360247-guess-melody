@@ -1,4 +1,4 @@
-import {getGameRestartButton, onGameRestartButtonClick} from "../../basis/game-restart";
+// import {getGameRestartButton, onGameRestartButtonClick} from "../../basis/game-restart";
 import ApplicationView from "../game-view";
 
 export default class ArtistLevelView extends ApplicationView {
@@ -55,8 +55,8 @@ export default class ArtistLevelView extends ApplicationView {
     const answersList = this.element.querySelector(`.main-list`);
     answersList.addEventListener(`click`, this.onArtistAnswerClick);
 
-    const gameRestartButton = getGameRestartButton(this.element);
-    gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    // const gameRestartButton = getGameRestartButton(this.element);
+    // gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
     this.players = this.element.querySelectorAll(`.player`);
     this.tracks = [];

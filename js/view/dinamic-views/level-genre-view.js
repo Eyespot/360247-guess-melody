@@ -55,10 +55,10 @@ export default class GenreView extends ApplicationView {
     this.genreFormSubmit = this.genreForm.querySelector(`.genre-answer-send`);
     this.genreFormCheckboxes = this.genreForm.querySelectorAll(`input[type=checkbox]`);
     this.labels = this.genreForm.querySelectorAll(`.genre-answer-check`);
-    this.gameRestartButton = getGameRestartButton(this.element);
+    // this.gameRestartButton = getGameRestartButton(this.element);
     this.genreForm.addEventListener(`change`, this.onGenreAnswerChange);
     this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);
-    this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    // this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
     this.players = this.element.querySelectorAll(`.player`);
     this.tracks = [];

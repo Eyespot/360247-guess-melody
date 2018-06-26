@@ -16,15 +16,14 @@ export default class GameView {
   }
 
   bind() {
-    // bind listeners if required
   }
 
   get element() {
     if (this._element) {
-      return this._element.firstElementChild;
+      return this._element;
     }
     this._element = this.render();
     this.bind(this._element);
-    return this._element.firstElementChild;
+    return this._element;
   }
 }

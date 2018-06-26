@@ -19,7 +19,7 @@ export default class ResultNoAttemptsView extends ApplicationView {
   }
 
   bind() {
-    this.gameRestartButton = getGameRestartButton(this.element);
-    this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    // this.gameRestartButton = getGameRestartButton(this.element);
+    // this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
   }
 }

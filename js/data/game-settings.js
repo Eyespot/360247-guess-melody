@@ -1,7 +1,7 @@
 export default Object.freeze(
     {
       ATTEMPTS: 3,
-      START_TIME: 15,
+      START_TIME: 5,
       LEVELS_QUANTITY: 10,
       FAST_ANSWER: 30,
       START_SCREEN: 0,

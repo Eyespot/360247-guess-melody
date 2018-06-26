@@ -1,7 +1,6 @@
 import gameSettings from "../data/game-settings";
 
 const SECONDS_IN_ONE_MINUTE = 60;
-const MILLISEDONDS_IN_ONE_SECOND = 1000;
 
 export const getRandomInteger = (min, max) => {
   let random = min + Math.random() * (max + 1 - min);
@@ -28,11 +27,6 @@ export const createTemplateElement = (segment = ``) => {
   return template.content;
 };
 
-const applicationContainer = document.querySelector(`.app`);
-export const getComponentDestination = () => {
-  return applicationContainer.firstElementChild.firstElementChild;
-};
-
 export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) => {
   if (gameSettings.IS_DEVELOPMENT_MODE) {
     const answers = Array.from(inputs);
@@ -42,22 +36,4 @@ export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) =
       }
     }
   }
-};
-
-let time;
-
-export const startTimer = (timer) => {
-  time = setTimeout(() => {
-    timer = timer.tick();
-    startTimer(timer);
-    // console.log(timer.time);
-  }, MILLISEDONDS_IN_ONE_SECOND);
-};
-
-export const stopTimer = () => {
-  clearTimeout(time);
-};
-
-export const updateClock = () => {
-
 };

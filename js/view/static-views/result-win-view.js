@@ -22,7 +22,7 @@ export default class ResultWinView extends ApplicationView {
   }
 
   bind() {
-    this.gameRestartButton = getGameRestartButton(this.element);
-    this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    // this.gameRestartButton = getGameRestartButton(this.element);
+    // this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
   }
 }
