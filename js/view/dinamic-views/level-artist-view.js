@@ -1,4 +1,5 @@
-// import {getGameRestartButton, onGameRestartButtonClick} from "../../basis/game-restart";
+import {getGameRestartButton} from "../../basis/game-restart";
+import Application from "../../basis/application";
 import ApplicationView from "../game-view";
 
 export default class ArtistLevelView extends ApplicationView {
@@ -39,35 +40,43 @@ export default class ArtistLevelView extends ApplicationView {
     `;
   }
 
-  onArtistAnswerClick() {
-  }
-
-  reflectCorrectAnswerOnDevelopment() {
-  }
-
   onPlayerButtonClick() {
   }
 
+  stopGame() {
+  }
+
+  catchAnswerTargetValue() {
+  }
+
+  onAnswer() {
+  }
+
   bind() {
-    this.radio = this.element.querySelectorAll(`.main-answer-r`);
-    this.labels = this.element.querySelectorAll(`.main-answer`);
-
     const answersList = this.element.querySelector(`.main-list`);
-    answersList.addEventListener(`click`, this.onArtistAnswerClick);
-
-    // const gameRestartButton = getGameRestartButton(this.element);
-    // gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
-
-    this.players = this.element.querySelectorAll(`.player`);
-    this.tracks = [];
-    this.playerButtons = [];
-    this.players.forEach((item) => {
-      this.tracks.push(item.querySelector(`audio`));
-      const button = item.querySelector(`button`);
-      this.playerButtons.push(button);
-      button.addEventListener(`click`, this.onPlayerButtonClick);
+    answersList.addEventListener(`click`, (event) => {
+      event.preventDefault();
+      const answer = this.catchAnswerTargetValue(event);
+      this.onAnswer(answer);
     });
-    this.firstTrack = this.tracks[0];
-    this.firstPlayButton = this.playerButtons[0];
+
+    const gameRestartButton = getGameRestartButton(this.element);
+    gameRestartButton.onclick = (event) => {
+      event.preventDefault();
+      this.stopGame();
+      Application.showWelcome();
+    };
+
+    // this.players = this.element.querySelectorAll(`.player`);
+    // this.tracks = [];
+    // this.playerButtons = [];
+    // this.players.forEach((item) => {
+    //   this.tracks.push(item.querySelector(`audio`));
+    //   const button = item.querySelector(`button`);
+    //   this.playerButtons.push(button);
+    //   button.addEventListener(`click`, this.onPlayerButtonClick);
+    // });
+    // this.firstTrack = this.tracks[0];
+    // this.firstPlayButton = this.playerButtons[0];
   }
 }

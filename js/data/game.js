@@ -8,7 +8,7 @@ export default Object.freeze({
 });
 
 export const updateScreen = (game) => {
-  const screen = game.screen++;
+  const screen = game.screen + 1;
   return Object.assign({}, game, {
     screen
   });

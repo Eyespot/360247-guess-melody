@@ -1,10 +1,4 @@
 import changeLevel from "../basis/change-screen";
-import {getRandomInteger} from "./utils";
-import gameSettings from "../data/game-settings";
-
-const getAnswerSpeed = () => {
-  return (getRandomInteger(25, 35) < gameSettings.FAST_ANSWER);
-};
 
 const onAnswer = (data, state, isCorrect) => {
   state.answers.push({isCorrect, isFast: getAnswerSpeed()});

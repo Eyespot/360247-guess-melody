@@ -1,5 +1,6 @@
-import {getGameRestartButton, onGameRestartButtonClick} from "../../basis/game-restart";
+import {getGameRestartButton} from "../../basis/game-restart";
 import ApplicationView from "../game-view";
+import Application from "../../basis/application";
 
 export default class ResultNoAttemptsView extends ApplicationView {
 
@@ -19,7 +20,10 @@ export default class ResultNoAttemptsView extends ApplicationView {
   }
 
   bind() {
-    // this.gameRestartButton = getGameRestartButton(this.element);
-    // this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    const gameRestartButton = getGameRestartButton(this.element);
+    gameRestartButton.onclick = (event) => {
+      event.preventDefault();
+      Application.replay();
+    };
   }
 }

@@ -37,3 +37,7 @@ export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) =
     }
   }
 };
+
+export const getAnswerSpeed = (answerTime) => {
+  return (answerTime < gameSettings.FAST_ANSWER);
+};

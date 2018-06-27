@@ -37,7 +37,7 @@ export default class GameModel {
   }
 
   get isGameTimeout() {
-    return this._state.time <= 0;
+    return this._state.timer.time <= 0;
   }
 
   get isGameFinished() {
