@@ -4,8 +4,7 @@ import GameModel from "../data/game-model";
 import gameData from "../data/game-data";
 import ResultTimeoutPresenter from "../presenter/result-timeout-presenter";
 import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter";
-
-const FIRST_LEVEL_INDEX = 1;
+import LevelGenrePresenter from "../presenter/level-genre-presenter";
 
 class Application {
 
@@ -17,7 +16,6 @@ class Application {
 
   static replay() {
     const model = new GameModel();
-    model.state.screen = FIRST_LEVEL_INDEX;
     this.chooseGame(model);
   }
 
@@ -32,6 +30,9 @@ class Application {
   }
 
   static showGenre(model) {
+    const genreScreen = new LevelGenrePresenter(model, gameData[model.state.screen]);
+    genreScreen.showScreen();
+    genreScreen.startGame();
   }
 
   static showNoAttempts() {
