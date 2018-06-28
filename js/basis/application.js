@@ -4,10 +4,16 @@ import ResultTimeoutPresenter from "../presenter/result-timeout-presenter";
 import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter";
 import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
+import PreloadPresenter from "../presenter/preload-presenter";
 import GameModel from "../data/game-model";
 import gameData from "../data/game-data";
 
 class Application {
+
+  static showPreload() {
+    const preload = new PreloadPresenter();
+    preload.showScreen();
+  }
 
   static showWelcome() {
     const model = new GameModel();

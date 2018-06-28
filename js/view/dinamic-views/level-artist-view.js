@@ -51,12 +51,15 @@ export default class ArtistLevelView extends ApplicationView {
   onAnswer() {
   }
 
+  onPlayerButtonClick() {
+  }
+
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
     answersList.addEventListener(`click`, (event) => {
       event.preventDefault();
       const answer = this.catchAnswerTargetValue(event);
-      this.onAnswer(answer);
+      this.onAnswer(event, answer);
     });
 
     const gameRestartButton = this.element.querySelector(`.play-again`);
@@ -66,16 +69,12 @@ export default class ArtistLevelView extends ApplicationView {
       Application.showWelcome();
     };
 
-    // this.players = this.element.querySelectorAll(`.player`);
-    // this.tracks = [];
-    // this.playerButtons = [];
-    // this.players.forEach((item) => {
-    //   this.tracks.push(item.querySelector(`audio`));
-    //   const button = item.querySelector(`button`);
-    //   this.playerButtons.push(button);
-    //   button.addEventListener(`click`, this.onPlayerButtonClick);
-    // });
-    // this.firstTrack = this.tracks[0];
-    // this.firstPlayButton = this.playerButtons[0];
+    this.firstTrack = this.element.querySelector(`audio`);
+    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+
+    this.playerButton = this.element.querySelector(`button`);
+    this.playerButton.addEventListener(`click`, () => {
+      this.onPlayerButtonClick(event);
+    });
   }
 }

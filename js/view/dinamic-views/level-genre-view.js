@@ -47,9 +47,6 @@ export default class GenreView extends ApplicationView {
   onPlayerButtonClick() {
   }
 
-  // getGameRestartButton() {
-  // }
-
   bind() {
     const gameRestartButton = this.element.querySelector(`.play-again`);
     gameRestartButton.onclick = (event) => {
@@ -69,18 +66,22 @@ export default class GenreView extends ApplicationView {
       this.onGenreFormSubmitClick();
     });
 
-    // this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);
-
-    // this.players = this.element.querySelectorAll(`.player`);
-    // this.tracks = [];
-    // this.playerButtons = [];
-    // this.players.forEach((item) => {
-    //   this.tracks.push(item.querySelector(`audio`));
-    //   const button = item.querySelector(`button`);
-    //   this.playerButtons.push(button);
-    //   button.addEventListener(`click`, this.onPlayerButtonClick);
-    // });
-    // this.firstTrack = this.tracks[0];
-    // this.firstPlayButton = this.playerButtons[0];
+    this.players = this.element.querySelectorAll(`.player`);
+    this.tracks = [];
+    this.playerButtons = [];
+    this.players.forEach((item) => {
+      this.tracks.push(item.querySelector(`audio`));
+      const button = item.querySelector(`button`);
+      this.playerButtons.push(button);
+      button.addEventListener(`click`, (event) => {
+        this.onPlayerButtonClick(event);
+      });
+    });
+    this.firstTrack = this.tracks[0];
+    this.firstPlayButton = this.playerButtons[0];
+    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+    this.playingTrack = this.firstTrack;
+    this.playingTrackButton = this.firstPlayButton;
+    this.firstPlayButton.classList.add(`player-control--pause`);
   }
 }

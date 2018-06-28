@@ -2,6 +2,8 @@ import gameSettings from "../data/game-settings";
 import ClockView from "../view/dinamic-views/components/clock-view";
 import Application from "../basis/application";
 
+const PLAYING_BUTTON_SELECTOR = `player-control--pause`;
+
 let currentScreen = document.querySelector(`section.main`);
 
 export default class GamePresenter {
@@ -94,6 +96,28 @@ export default class GamePresenter {
       if (this.model.canTheGameContinue) {
         Application.chooseGame(this.model);
       }
+    }
+  }
+
+  onPlayerButtonClick(event) {
+    event.preventDefault();
+    const target = event.target;
+    const track = target.previousElementSibling;
+
+    if (target.classList.contains(PLAYING_BUTTON_SELECTOR)) {
+      target.classList.remove(PLAYING_BUTTON_SELECTOR);
+      track.pause();
+      this.playingTrack = null;
+      this.playingTrackButton = null;
+    } else {
+      if (this.playingTrack) {
+        this.playingTrackButton.classList.remove(PLAYING_BUTTON_SELECTOR);
+        this.playingTrack.pause();
+      }
+      target.classList.add(PLAYING_BUTTON_SELECTOR);
+      track.play();
+      this.playingTrack = track;
+      this.playingTrackButton = target;
     }
   }
 }

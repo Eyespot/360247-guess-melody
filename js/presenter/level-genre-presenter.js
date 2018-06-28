@@ -10,7 +10,7 @@ export default class LevelGenrePresenter extends GamePresenter {
     this.level = level;
 
     this.view = new GenreLevelView(this.level);
-    // this.view.audio = audio???;
+    this.view.onPlayerButtonClick = this.onPlayerButtonClick;
     this.view.stopGame = this.stopGame.bind(this);
     this.view.onGenreFormSubmitClick = this.onGenreFormSubmitClick.bind(this);
 

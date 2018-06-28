@@ -10,10 +10,10 @@ export default class LevelArtistPresenter extends GamePresenter {
     this.level = level;
 
     this.view = new ArtistLevelView(this.level);
-    // this.view.audio = audio???;
     this.view.catchAnswerTargetValue = this.catchAnswerTargetValue;
     this.view.stopGame = this.stopGame.bind(this);
     this.view.onAnswer = this.onArtistAnswer.bind(this);
+    this.view.onPlayerButtonClick = this.onPlayerButtonClick;
     this.mistakes = new MistakesView(this.model.state.lives);
 
     this.view.radio = this.view.element.querySelectorAll(`.main-answer-r`);
@@ -22,14 +22,13 @@ export default class LevelArtistPresenter extends GamePresenter {
 
     this.root = this.view.element.firstElementChild;
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, this.mistakes.template);
-    this.view.getGameRestartButton = this.getGameRestartButton;
   }
 
   catchAnswerTargetValue(event) {
     return event.target.parentNode.previousElementSibling;
   }
 
-  onArtistAnswer(answer) {
+  onArtistAnswer(event, answer) {
 
     const answersMap = {
       0: this.level.options[0].isCorrect,

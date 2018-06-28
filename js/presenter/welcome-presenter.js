@@ -1,4 +1,4 @@
-import WelcomeView from "../view/static-views/welcomeView";
+import WelcomeView from "../view/static-views/welcome-view";
 import GamePresenter from "../presenter/game-presenter";
 import Application from "../basis/application";
 
