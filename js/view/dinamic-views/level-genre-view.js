@@ -1,4 +1,3 @@
-import {getGameRestartButton} from "../../basis/game-restart";
 import ApplicationView from "../game-view";
 import Application from "../../basis/application";
 
@@ -48,8 +47,11 @@ export default class GenreView extends ApplicationView {
   onPlayerButtonClick() {
   }
 
+  // getGameRestartButton() {
+  // }
+
   bind() {
-    const gameRestartButton = getGameRestartButton(this.element);
+    const gameRestartButton = this.element.querySelector(`.play-again`);
     gameRestartButton.onclick = (event) => {
       event.preventDefault();
       this.stopGame();
@@ -61,8 +63,13 @@ export default class GenreView extends ApplicationView {
       this.onGenreAnswerChange();
     });
 
+    this.genreFormSubmit = this.genreForm.querySelector(`.genre-answer-send`);
+    this.genreFormSubmit.addEventListener(`click`, (event) => {
+      event.preventDefault();
+      this.onGenreFormSubmitClick();
+    });
+
     // this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);
-    // this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
 
     // this.players = this.element.querySelectorAll(`.player`);
     // this.tracks = [];

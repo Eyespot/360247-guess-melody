@@ -1,4 +1,3 @@
-import {getGameRestartButton} from "../../basis/game-restart";
 import Application from "../../basis/application";
 import ApplicationView from "../game-view";
 
@@ -60,7 +59,7 @@ export default class ArtistLevelView extends ApplicationView {
       this.onAnswer(answer);
     });
 
-    const gameRestartButton = getGameRestartButton(this.element);
+    const gameRestartButton = this.element.querySelector(`.play-again`);
     gameRestartButton.onclick = (event) => {
       event.preventDefault();
       this.stopGame();

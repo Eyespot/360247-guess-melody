@@ -1,6 +1,5 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
 import gameData from "./game-data";
-import gameSettings from "./game-settings";
 
 const getLevel = (state) => gameData[state.screen];
 
@@ -24,10 +23,6 @@ export default class GameModel {
     return this._state;
   }
 
-  get getCurrentLevel() {
-    return getLevel(this._state);
-  }
-
   get gameType() {
     return getLevel(this._state).gameType;
   }
@@ -46,34 +41,6 @@ export default class GameModel {
 
   get canTheGameContinue() {
     return !this.isGameLost && !this.isGameFinished && !this.isGameTimeout;
-  }
-
-  get gameScore() {
-    let points = 0;
-    this._state.answers.forEach((answer) => {
-      if (answer.isCorrect) {
-        points += answer.isFast ? gameSettings.CORRECT_FAST_ANSWER_POINTS : gameSettings.CORRECT_ANSWER_POINTS;
-        if (answer.isFast) {
-          this._state.outcome.quickPointsReceived++;
-        }
-      } else {
-        points -= gameSettings.MISTAKE_PENALTY;
-      }
-    });
-
-    return points;
-  }
-
-  get getCurrentStatistics() {
-    return {
-      pointsReceived: this.gameScore,
-      livesLeft: this._state.lives,
-      timeLeft: this._state.timer.time
-    };
-  }
-
-  tick() {
-    this._state.timer = this._state.timer.tick();
   }
 
   nextScreen() {

@@ -1,10 +1,11 @@
-import ArtistLevelPresenter from "../presenter/level-artist-presenter";
+import LevelArtistPresenter from "../presenter/level-artist-presenter";
+import LevelGenrePresenter from "../presenter/level-genre-presenter";
+import ResultTimeoutPresenter from "../presenter/result-timeout-presenter";
+import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter";
+import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
 import GameModel from "../data/game-model";
 import gameData from "../data/game-data";
-import ResultTimeoutPresenter from "../presenter/result-timeout-presenter";
-import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter";
-import LevelGenrePresenter from "../presenter/level-genre-presenter";
 
 class Application {
 
@@ -24,7 +25,7 @@ class Application {
   }
 
   static showArtist(model) {
-    const artistScreen = new ArtistLevelPresenter(model, gameData[model.state.screen]);
+    const artistScreen = new LevelArtistPresenter(model, gameData[model.state.screen]);
     artistScreen.showScreen();
     artistScreen.startGame();
   }
@@ -36,11 +37,13 @@ class Application {
   }
 
   static showNoAttempts() {
-    const NoAttemptsScreen = new ResultNoAttemptsPresenter();
-    NoAttemptsScreen.showScreen();
+    const noAttemptsScreen = new ResultNoAttemptsPresenter();
+    noAttemptsScreen.showScreen();
   }
 
   static showWin(model) {
+    const winScreen = new ResultWinPresenter(model);
+    winScreen.showScreen();
   }
 
   static showTimeout() {

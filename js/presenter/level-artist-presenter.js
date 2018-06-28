@@ -1,7 +1,6 @@
 import GamePresenter from "./game-presenter";
 import ArtistLevelView from "../view/dinamic-views/level-artist-view";
 import MistakesView from "../view/dinamic-views/components/mistakes-view";
-import Application from "../basis/application";
 
 export default class LevelArtistPresenter extends GamePresenter {
   constructor(model, level) {
@@ -13,7 +12,7 @@ export default class LevelArtistPresenter extends GamePresenter {
     this.view = new ArtistLevelView(this.level);
     // this.view.audio = audio???;
     this.view.catchAnswerTargetValue = this.catchAnswerTargetValue;
-    this.view.stopGame = this.stopGame;
+    this.view.stopGame = this.stopGame.bind(this);
     this.view.onAnswer = this.onArtistAnswer.bind(this);
     this.mistakes = new MistakesView(this.model.state.lives);
 
@@ -23,6 +22,7 @@ export default class LevelArtistPresenter extends GamePresenter {
 
     this.root = this.view.element.firstElementChild;
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, this.mistakes.template);
+    this.view.getGameRestartButton = this.getGameRestartButton;
   }
 
   catchAnswerTargetValue(event) {
@@ -38,34 +38,8 @@ export default class LevelArtistPresenter extends GamePresenter {
     };
     const answers = Array.from(event.currentTarget.querySelectorAll(`.main-answer-r`));
     const answerNumber = answers.indexOf(answer);
-    const isCorrect = answersMap[answerNumber];
-    console.log(isCorrect);
+    this.isAnswerCorrect = answersMap[answerNumber];
 
-    if (!isCorrect) {
-      this.model.loseLife();
-    }
-
-    if (this.model.isGameLost) {
-      console.log(`dead`);
-      Application.showNoAttempts();
-    } else {
-      this.view.stopGame();
-      this.model.nextScreen();
-      const answerTime = this.view.stopGame();
-      console.log(answerTime);
-
-      this.model.setAnswer({
-        isCorrect,
-        isFast: this.getAnswerSpeed(5)
-      });
-
-      if (this.model.isGameFinished) {
-        // Application.showWinResult(this.model);
-      }
-
-      if (this.model.canTheGameContinue) {
-        Application.chooseGame(this.model);
-      }
-    }
+    this.progressOnAnswer();
   }
 }

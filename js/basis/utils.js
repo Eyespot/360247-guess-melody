@@ -1,5 +1,3 @@
-import gameSettings from "../data/game-settings";
-
 const SECONDS_IN_ONE_MINUTE = 60;
 
 export const getRandomInteger = (min, max) => {
@@ -25,19 +23,4 @@ export const createTemplateElement = (segment = ``) => {
   const template = document.createElement(`template`);
   template.innerHTML = segment.trim();
   return template.content;
-};
-
-export const reflectCorrectAnswerOnDevelopment = (inputs, labels, key, styles) => {
-  if (gameSettings.IS_DEVELOPMENT_MODE) {
-    const answers = Array.from(inputs);
-    for (const input of answers) {
-      if (input.value === key) {
-        labels[answers.indexOf(input)].setAttribute(`style`, styles);
-      }
-    }
-  }
-};
-
-export const getAnswerSpeed = (answerTime) => {
-  return (answerTime < gameSettings.FAST_ANSWER);
 };

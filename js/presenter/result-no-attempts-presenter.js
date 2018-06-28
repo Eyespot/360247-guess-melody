@@ -6,5 +6,6 @@ export default class ResultNoAttemptsPresenter extends GamePresenter {
     super();
     this.view = new ResultNoAttemptsView();
     this.root = this.view.element.firstElementChild;
+    this.view.getGameRestartButton = this.getGameRestartButton;
   }
 }
