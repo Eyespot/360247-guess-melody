@@ -1,7 +1,7 @@
 import gameSettings from "../data/game-settings";
 import reflectResult from "./reflect-game-result";
 import numerals from "../data/numerals";
-import {calculateMinutes, getRandomInteger, getWordDeclension} from "./utils";
+import {calculateMinutes, getWordDeclension} from "./utils";
 import {statistics} from "../data/statistics";
 import getCurrentStatistics from "../data/statistics";
 
@@ -28,7 +28,7 @@ export const summarizePoints = (state) => {
 
 export const getFinalResult = (state) => {
   const points = summarizePoints(state);
-  state.outcome.timeSpend = calculateMinutes(gameSettings.START_TIME - getRandomInteger(25, 250));
+  state.outcome.timeSpend = calculateMinutes(gameSettings.START_TIME - state.timer.time);
   state.outcome.pointsReceived = points;
   state.outcome.mistakes = gameSettings.ATTEMPTS - state.lives;
   const currentStatistics = getCurrentStatistics(state, points);

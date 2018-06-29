@@ -1,5 +1,5 @@
-import {getGameRestartButton, onGameRestartButtonClick} from "../basis/game-restart";
-import ApplicationView from "../view/application-view";
+import ApplicationView from "../game-view";
+import Application from "../../basis/application";
 
 export default class GenreView extends ApplicationView {
   constructor(level) {
@@ -44,21 +44,27 @@ export default class GenreView extends ApplicationView {
   onGenreFormSubmitClick() {
   }
 
-  reflectCorrectAnswerOnDevelopment() {
-  }
-
   onPlayerButtonClick() {
   }
 
   bind() {
+    const gameRestartButton = this.element.querySelector(`.play-again`);
+    gameRestartButton.onclick = (event) => {
+      event.preventDefault();
+      this.stopGame();
+      Application.showWelcome();
+    };
+
     this.genreForm = this.element.querySelector(`.genre`);
+    this.genreForm.addEventListener(`change`, () => {
+      this.onGenreAnswerChange();
+    });
+
     this.genreFormSubmit = this.genreForm.querySelector(`.genre-answer-send`);
-    this.genreFormCheckboxes = this.genreForm.querySelectorAll(`input[type=checkbox]`);
-    this.labels = this.genreForm.querySelectorAll(`.genre-answer-check`);
-    this.gameRestartButton = getGameRestartButton(this.element);
-    this.genreForm.addEventListener(`change`, this.onGenreAnswerChange);
-    this.genreFormSubmit.addEventListener(`click`, this.onGenreFormSubmitClick);
-    this.gameRestartButton.addEventListener(`click`, onGameRestartButtonClick);
+    this.genreFormSubmit.addEventListener(`click`, (event) => {
+      event.preventDefault();
+      this.onGenreFormSubmitClick();
+    });
 
     this.players = this.element.querySelectorAll(`.player`);
     this.tracks = [];
@@ -67,9 +73,15 @@ export default class GenreView extends ApplicationView {
       this.tracks.push(item.querySelector(`audio`));
       const button = item.querySelector(`button`);
       this.playerButtons.push(button);
-      button.addEventListener(`click`, this.onPlayerButtonClick);
+      button.addEventListener(`click`, (event) => {
+        this.onPlayerButtonClick(event);
+      });
     });
     this.firstTrack = this.tracks[0];
     this.firstPlayButton = this.playerButtons[0];
+    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+    this.playingTrack = this.firstTrack;
+    this.playingTrackButton = this.firstPlayButton;
+    this.firstPlayButton.classList.add(`player-control--pause`);
   }
 }

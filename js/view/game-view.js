@@ -1,8 +1,8 @@
 import {createTemplateElement} from "../basis/utils";
 
-export default class AbstractView {
+export default class GameView {
   constructor() {
-    if (new.target === AbstractView) {
+    if (new.target === GameView) {
       throw new Error(`Can't get any template`);
     }
   }
@@ -16,15 +16,14 @@ export default class AbstractView {
   }
 
   bind() {
-    // bind listeners if required
   }
 
   get element() {
     if (this._element) {
-      return this._element.firstElementChild;
+      return this._element;
     }
     this._element = this.render();
     this.bind(this._element);
-    return this._element.firstElementChild;
+    return this._element;
   }
 }

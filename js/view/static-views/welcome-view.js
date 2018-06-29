@@ -1,9 +1,10 @@
-import ApplicationView from "../view/application-view";
+import ApplicationView from "../game-view";
 
 export default class WelcomeView extends ApplicationView {
 
-  constructor() {
+  constructor(model) {
     super();
+    this.model = model;
   }
 
   get template() {
