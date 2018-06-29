@@ -22,7 +22,7 @@ export default class PreloadView extends ApplicationView {
 
   bind() {
     window.onload = () => {
-      this.onWindowLoad();
+      // this.onWindowLoad();
     };
   }
 }

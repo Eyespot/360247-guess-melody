@@ -39,9 +39,6 @@ export default class ArtistLevelView extends ApplicationView {
     `;
   }
 
-  onPlayerButtonClick() {
-  }
-
   stopGame() {
   }
 

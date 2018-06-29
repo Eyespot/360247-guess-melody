@@ -1,11 +1,11 @@
-import gameData from "./game-data";
+// import gameData from "./game-data";
 
-const preloadMedia = () => {
+const preloadMedia = (data) => {
   const tracks = new Set();
   const pictures = new Set();
 
-  gameData.forEach((level) => {
-    const options = gameData[gameData.indexOf(level)].options;
+  data.forEach((level) => {
+    const options = data[data.indexOf(level)].options;
 
     options.forEach((option) => {
       if (option.hasOwnProperty(`image`)) {
