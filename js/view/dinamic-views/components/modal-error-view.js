@@ -1,6 +1,6 @@
 import GameView from "../../game-view";
 
-export default class ErrorView extends GameView {
+export default class ModalErrorView extends GameView {
   constructor(error) {
     super();
 

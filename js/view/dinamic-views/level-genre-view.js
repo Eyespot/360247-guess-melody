@@ -49,11 +49,11 @@ export default class GenreView extends ApplicationView {
 
   bind() {
     const gameRestartButton = this.element.querySelector(`.play-again`);
-    gameRestartButton.onclick = (event) => {
+    gameRestartButton.addEventListener(`click`, (event) => {
+      event.stopPropagation();
       event.preventDefault();
-      this.stopGame();
-      Application.showStart();
-    };
+      Application.showModal(this.stopGame);
+    });
 
     this.genreForm = this.element.querySelector(`.genre`);
     this.genreForm.addEventListener(`change`, () => {

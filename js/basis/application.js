@@ -6,10 +6,13 @@ import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
 import PreloadPresenter from "../presenter/preload-presenter";
 import GameModel from "../data/game-model";
-import ErrorView from "../view/dinamic-views/components/error-view";
+import ModalErrorView from "../view/dinamic-views/components/modal-error-view";
+import ModalConfirmationView from "../view/dinamic-views/components/modal-confirmation-view";
 import GameDataTransfer from "../data/game-data-transfer";
 import {adaptServerData} from "../data/game-data-adapter";
 import MediaPreloader from "../data/media-preloader";
+
+const ESC_KEYCODE = 27;
 
 let gameData;
 
@@ -29,7 +32,7 @@ class Application {
 
         setTimeout(() => {
           welcome.showScreen();
-        }, 25000);
+        }, 250);
 
         // Promise.all(links).then(() => welcome.showScreen());
       }).catch(Application.showError);
@@ -77,8 +80,21 @@ class Application {
   }
 
   static showError(error) {
-    const errorView = new ErrorView(error);
+    const errorView = new ModalErrorView(error);
     errorView.showModal();
+  }
+
+  static showModal(stopGame) {
+    const modalConfirmation = new ModalConfirmationView();
+    const modalElement = modalConfirmation.element;
+    modalConfirmation.stopGame = stopGame;
+    modalConfirmation.onEscClose = (event) => {
+      if (event.keyCode === ESC_KEYCODE) {
+        modalConfirmation.onClose();
+      }
+    };
+    document.addEventListener(`keydown`, modalConfirmation.onEscClose);
+    document.body.appendChild(modalElement);
   }
 }
 

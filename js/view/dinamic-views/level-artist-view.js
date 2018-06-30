@@ -51,6 +51,9 @@ export default class ArtistLevelView extends ApplicationView {
   onPlayerButtonClick() {
   }
 
+  onBackSubmitHandler() {
+  }
+
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
     answersList.addEventListener(`click`, (event) => {
@@ -60,11 +63,11 @@ export default class ArtistLevelView extends ApplicationView {
     });
 
     const gameRestartButton = this.element.querySelector(`.play-again`);
-    gameRestartButton.onclick = (event) => {
+    gameRestartButton.addEventListener(`click`, (event) => {
+      event.stopPropagation();
       event.preventDefault();
-      this.stopGame();
-      Application.showStart();
-    };
+      Application.showModal(this.stopGame);
+    });
 
     this.firstTrack = this.element.querySelector(`audio`);
     this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
