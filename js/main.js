@@ -1,7 +1,7 @@
 import Application from "./basis/application";
-import preloadMedia from "./data/preload-media";
+// import preloadMedia from "./data/preload-media";
 
-preloadMedia();
+// preloadMedia();
 
 document.addEventListener(`DOMContentLoaded`, () => {
   Application.showPreload();

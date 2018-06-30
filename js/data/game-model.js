@@ -1,10 +1,11 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
-import gameData from "./game-data";
+// import gameData from "./game-data";
 
-const getLevel = (state) => gameData[state.screen];
+// const getLevel = (state) => gameData[state.screen];
 
 export default class GameModel {
-  constructor() {
+  constructor(data) {
+    this.data = data;
     this.restart();
   }
 
@@ -19,12 +20,16 @@ export default class GameModel {
     };
   }
 
+  getLevel(state) {
+    return this.data[state.screen];
+  }
+
   get state() {
     return this._state;
   }
 
   get gameType() {
-    return getLevel(this._state).gameType;
+    return this.getLevel(this._state).gameType;
   }
 
   get isGameLost() {
@@ -36,7 +41,7 @@ export default class GameModel {
   }
 
   get isGameFinished() {
-    return this._state.screen >= gameData.length;
+    return this._state.screen >= this.data.length;
   }
 
   get canTheGameContinue() {

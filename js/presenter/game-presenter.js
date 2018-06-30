@@ -19,11 +19,11 @@ export default class GamePresenter {
       this.model.state.timer = timer;
 
       if (timer.time <= 0) {
-        this.startGame(timer);
+        this.startTimer();
         this.stopGame();
         Application.showTimeout(this.model);
       } else {
-        this.startTimer(timer);
+        this.startTimer();
       }
     }, 1000);
   }
