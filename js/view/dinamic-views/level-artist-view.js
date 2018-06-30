@@ -51,9 +51,6 @@ export default class ArtistLevelView extends ApplicationView {
   onPlayerButtonClick() {
   }
 
-  onBackSubmitHandler() {
-  }
-
   bind() {
     const answersList = this.element.querySelector(`.main-list`);
     answersList.addEventListener(`click`, (event) => {
