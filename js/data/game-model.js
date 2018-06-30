@@ -1,5 +1,5 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
-// import gameData from "./game-data";
+import gameSettings from "./game-settings";
 
 // const getLevel = (state) => gameData[state.screen];
 
@@ -12,8 +12,8 @@ export default class GameModel {
   restart() {
     this._state = Object.assign({}, initialGameState);
     this._state.answers = [];
+    this._state.gamesStatistics = [];
     this._state.outcome = {
-      timeSpend: {},
       pointsReceived: 0,
       quickPointsReceived: 0,
       mistakes: 0
@@ -41,7 +41,7 @@ export default class GameModel {
   }
 
   get isGameFinished() {
-    return this._state.screen >= this.data.length;
+    return this._state.screen >= gameSettings.LEVELS_QUANTITY;
   }
 
   get canTheGameContinue() {

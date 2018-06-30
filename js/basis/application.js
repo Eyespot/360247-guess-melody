@@ -7,40 +7,32 @@ import WelcomePresenter from "../presenter/welcome-presenter";
 import PreloadPresenter from "../presenter/preload-presenter";
 import GameModel from "../data/game-model";
 import ErrorView from "../view/dinamic-views/components/error-view";
+import GameDataTransfer from "../data/game-data-transfer";
 import {adaptServerData} from "../data/game-data-adapter";
-import preloadMedia from "../data/preload-media";
-
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
+import MediaPreloader from "../data/media-preloader";
 
 let gameData;
 
 class Application {
 
-  static showPreload() {
+  static showStart() {
     const preload = new PreloadPresenter();
     preload.showScreen();
-    window.fetch(`https://es.dump.academy/guess-melody/questions`)
-      .then(checkStatus)
-      .then((response) => response.json())
+
+    GameDataTransfer.loadData()
       .then((data) => adaptServerData(data))
       .then((data) => {
         gameData = data;
-      })
-      .then(() => preloadMedia(gameData))
-      .then(() => Application.showWelcome())
-      .catch(Application.showError);
-  }
+        const model = new GameModel(gameData);
+        const welcome = new WelcomePresenter(model);
+        new MediaPreloader(gameData).appendPreloadLinks();
 
-  static showWelcome() {
-    const model = new GameModel(gameData);
-    const welcome = new WelcomePresenter(model);
-    welcome.showScreen();
+        setTimeout(() => {
+          welcome.showScreen();
+        }, 25000);
+
+        // Promise.all(links).then(() => welcome.showScreen());
+      }).catch(Application.showError);
   }
 
   static replay() {
@@ -70,8 +62,13 @@ class Application {
   }
 
   static showWin(model) {
-    const winScreen = new ResultWinPresenter(model);
-    winScreen.showScreen();
+    GameDataTransfer.downloadStatistics().then((statistics) => {
+      model.state.gamesStatistics = statistics;
+      const winScreen = new ResultWinPresenter(model);
+      winScreen.showScreen();
+    }).then(() => {
+      GameDataTransfer.uploadStatistics(model.state.currentStatistics);
+    }).catch(Application.showError);
   }
 
   static showTimeout() {

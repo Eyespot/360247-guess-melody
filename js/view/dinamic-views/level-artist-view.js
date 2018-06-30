@@ -63,7 +63,7 @@ export default class ArtistLevelView extends ApplicationView {
     gameRestartButton.onclick = (event) => {
       event.preventDefault();
       this.stopGame();
-      Application.showWelcome();
+      Application.showStart();
     };
 
     this.firstTrack = this.element.querySelector(`audio`);

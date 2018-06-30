@@ -52,7 +52,7 @@ export default class GenreView extends ApplicationView {
     gameRestartButton.onclick = (event) => {
       event.preventDefault();
       this.stopGame();
-      Application.showWelcome();
+      Application.showStart();
     };
 
     this.genreForm = this.element.querySelector(`.genre`);

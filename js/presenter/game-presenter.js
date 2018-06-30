@@ -115,7 +115,7 @@ export default class GamePresenter {
         this.playingTrack.pause();
       }
       target.classList.add(PLAYING_BUTTON_SELECTOR);
-      track.play();
+      track.oncanplaythrough = () => track.play();
       this.playingTrack = track;
       this.playingTrackButton = target;
     }
