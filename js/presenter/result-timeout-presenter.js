@@ -1,7 +1,7 @@
 import ResultTimeoutView from "../view/static-views/result-timeout-view";
-import GamePresenter from "./game-presenter";
+import ApplicationPresenter from "./application-presenter";
 
-export default class ResultTimeoutPresenter extends GamePresenter {
+export default class ResultTimeoutPresenter extends ApplicationPresenter {
   constructor() {
     super();
     this.view = new ResultTimeoutView();

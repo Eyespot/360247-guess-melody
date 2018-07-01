@@ -1,7 +1,7 @@
 import PreloadView from "../view/static-views/preload-view";
-import GamePresenter from "../presenter/game-presenter";
+import ApplicationPresenter from "./application-presenter";
 
-export default class PreloadPresenter extends GamePresenter {
+export default class PreloadPresenter extends ApplicationPresenter {
   constructor() {
     super();
 

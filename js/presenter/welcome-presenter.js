@@ -1,8 +1,8 @@
 import WelcomeView from "../view/static-views/welcome-view";
-import GamePresenter from "../presenter/game-presenter";
+import ApplicationPresenter from "./application-presenter";
 import Application from "../basis/application";
 
-export default class WelcomePresenter extends GamePresenter {
+export default class WelcomePresenter extends ApplicationPresenter {
   constructor(model) {
     super();
 

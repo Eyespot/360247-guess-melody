@@ -6,7 +6,7 @@ const PLAYING_BUTTON_SELECTOR = `player-control--pause`;
 
 let currentScreen = document.querySelector(`section.main`);
 
-export default class GamePresenter {
+export default class ApplicationPresenter {
   constructor(model) {
     this.model = model;
   }

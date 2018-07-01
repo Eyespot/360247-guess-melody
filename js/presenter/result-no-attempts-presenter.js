@@ -1,7 +1,7 @@
 import ResultNoAttemptsView from "../view/static-views/result-no-attempts-view";
-import GamePresenter from "./game-presenter";
+import ApplicationPresenter from "./application-presenter";
 
-export default class ResultNoAttemptsPresenter extends GamePresenter {
+export default class ResultNoAttemptsPresenter extends ApplicationPresenter {
   constructor() {
     super();
     this.view = new ResultNoAttemptsView();

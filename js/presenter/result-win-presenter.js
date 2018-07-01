@@ -1,8 +1,8 @@
-import GamePresenter from "./game-presenter";
+import ApplicationPresenter from "./application-presenter";
 import ResultWinView from "../view/static-views/result-win-view";
 import {getFinalResult, getStatisticsMessage} from "../basis/sum-up";
 
-export default class ResultWinPresenter extends GamePresenter {
+export default class ResultWinPresenter extends ApplicationPresenter {
   constructor(model) {
     super();
     this.state = model.state;

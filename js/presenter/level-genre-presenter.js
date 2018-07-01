@@ -1,8 +1,8 @@
-import GamePresenter from "./game-presenter";
+import ApplicationPresenter from "./application-presenter";
 import GenreLevelView from "../view/dinamic-views/level-genre-view";
 import MistakesView from "../view/dinamic-views/components/mistakes-view";
 
-export default class LevelGenrePresenter extends GamePresenter {
+export default class LevelGenrePresenter extends ApplicationPresenter {
   constructor(model, level) {
     super();
 

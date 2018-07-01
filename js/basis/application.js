@@ -6,7 +6,7 @@ import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
 import PreloadPresenter from "../presenter/preload-presenter";
 import ApplicationModel from "../data/application-model";
-import ModalErrorView from "../view/dinamic-views/components/modal-error-view";
+import ErrorView from "../view/dinamic-views/components/error-view";
 import ModalConfirmationView from "../view/dinamic-views/components/modal-confirmation-view";
 import GameDataTransfer from "../data/game-data-transfer";
 import {adaptServerData} from "../data/game-data-adapter";
@@ -77,7 +77,7 @@ class Application {
   }
 
   static showError(error) {
-    const errorView = new ModalErrorView(error);
+    const errorView = new ErrorView(error);
     errorView.showModal(error);
   }
 
