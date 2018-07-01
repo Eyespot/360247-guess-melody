@@ -22,8 +22,8 @@ export default class ApplicationModel {
     return this._state;
   }
 
-  get type() {
-    return this._getLevel(this._state).type;
+  get gameType() {
+    return this._getLevel(this._state).gameType;
   }
 
   get isGameLost() {
