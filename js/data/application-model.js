@@ -1,7 +1,7 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
 import gameSettings from "./game-settings";
 
-export default class GameModel {
+export default class ApplicationModel {
   constructor(data) {
     this.data = data;
     this.restart();
@@ -18,16 +18,12 @@ export default class GameModel {
     };
   }
 
-  getLevel(state) {
-    return this.data[state.screen];
-  }
-
   get state() {
     return this._state;
   }
 
-  get gameType() {
-    return this.getLevel(this._state).gameType;
+  get type() {
+    return this._getLevel(this._state).type;
   }
 
   get isGameLost() {
@@ -46,15 +42,19 @@ export default class GameModel {
     return !this.isGameLost && !this.isGameFinished && !this.isGameTimeout;
   }
 
+  setAnswer(answer) {
+    this._state = setAnswer(this._state, answer);
+  }
+
+  _getLevel(state) {
+    return this.data[state.screen];
+  }
+
   nextScreen() {
     this._state = updateScreen(this._state);
   }
 
   loseLife() {
     this._state = loseLife(this._state);
-  }
-
-  setAnswer(answer) {
-    this._state = setAnswer(this._state, answer);
   }
 }

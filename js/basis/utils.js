@@ -17,3 +17,13 @@ export const createTemplateElement = (segment = ``) => {
   template.innerHTML = segment.trim();
   return template.content;
 };
+
+export const Numeral = Object.freeze(
+    {
+      MINUTES: [`минуту`, `минуты`, `минут`],
+      SECONDS: [`секунду`, `секунды`, `секунд`],
+      POINTS: [`балл`, `балла`, `баллов`],
+      SHORTS: [`быстрый`, `быстрых`, `быстрых`],
+      MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
+    }
+);

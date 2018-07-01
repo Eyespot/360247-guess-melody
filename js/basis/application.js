@@ -5,7 +5,7 @@ import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter
 import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
 import PreloadPresenter from "../presenter/preload-presenter";
-import GameModel from "../data/game-model";
+import ApplicationModel from "../data/application-model";
 import ModalErrorView from "../view/dinamic-views/components/modal-error-view";
 import ModalConfirmationView from "../view/dinamic-views/components/modal-confirmation-view";
 import GameDataTransfer from "../data/game-data-transfer";
@@ -26,7 +26,7 @@ class Application {
       .then((data) => adaptServerData(data))
       .then((data) => {
         gameData = data;
-        const model = new GameModel(gameData);
+        const model = new ApplicationModel(gameData);
         const welcome = new WelcomePresenter(model);
         const media = new MediaPreloader(gameData);
         const links = media.addLoaders();
@@ -36,12 +36,12 @@ class Application {
   }
 
   static replay() {
-    const model = new GameModel(gameData);
+    const model = new ApplicationModel(gameData);
     this.chooseGame(model);
   }
 
   static chooseGame(model) {
-    gameSelector[model.gameType](model);
+    GameSelector[model.gameType](model);
   }
 
   static showArtist(model) {
@@ -95,7 +95,7 @@ class Application {
   }
 }
 
-const gameSelector = {
+const GameSelector = {
   'artist': Application.showArtist,
   'genre': Application.showGenre
 };

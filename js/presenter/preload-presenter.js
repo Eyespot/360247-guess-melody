@@ -7,8 +7,6 @@ export default class PreloadPresenter extends GamePresenter {
 
     this.view = new PreloadView(this.model);
     this.root = this.view.element.firstElementChild;
-
-    this.view.onWindowLoad = this.onWindowLoad;
   }
 
   get element() {

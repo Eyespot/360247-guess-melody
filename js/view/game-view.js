@@ -11,13 +11,6 @@ export default class GameView {
     return ``;
   }
 
-  render() {
-    return createTemplateElement(this.template);
-  }
-
-  bind() {
-  }
-
   get element() {
     if (this._element) {
       return this._element;
@@ -25,5 +18,12 @@ export default class GameView {
     this._element = this.render();
     this.bind(this._element);
     return this._element;
+  }
+
+  render() {
+    return createTemplateElement(this.template);
+  }
+
+  bind() {
   }
 }

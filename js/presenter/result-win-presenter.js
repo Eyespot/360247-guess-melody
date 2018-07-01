@@ -8,7 +8,6 @@ export default class ResultWinPresenter extends GamePresenter {
     this.state = model.state;
     this.view = new ResultWinView();
     this.root = this.view.element.firstElementChild;
-    this.view.getGameRestartButton = this.getGameRestartButton;
     this.view.comparisonMessage = this.root.querySelector(`.main-comparison`);
     this.view.statisticsMessage = this.root.querySelector(`.main-stat`);
 

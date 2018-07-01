@@ -1,7 +1,6 @@
 import gameSettings from "../data/game-settings";
 import reflectResult from "./reflect-game-result";
-import numerals from "../data/numerals";
-import {calculateMinutes, getWordDeclension} from "./utils";
+import {calculateMinutes, getWordDeclension, Numeral} from "./utils";
 
 const CORRECT_ANSWER_POINTS = 1;
 const CORRECT_FAST_ANSWER_POINTS = 2;
@@ -50,11 +49,11 @@ export const getStatisticsMessage = (state) => {
   const points = state.outcome.pointsReceived;
   const quickPoints = state.outcome.quickPointsReceived;
   const mistakes = state.outcome.mistakes;
-  const minutesDeclension = getWordDeclension(minutes, numerals.minute);
-  const secondsDeclension = getWordDeclension(seconds, numerals.second);
-  const pointsDeclension = getWordDeclension(points, numerals.point);
-  const quickPointsDeclension = getWordDeclension(quickPoints, numerals.quick);
-  const mistakesDeclension = getWordDeclension(mistakes, numerals.mistake);
+  const minutesDeclension = getWordDeclension(minutes, Numeral.MINUTES);
+  const secondsDeclension = getWordDeclension(seconds, Numeral.SECONDS);
+  const pointsDeclension = getWordDeclension(points, Numeral.POINTS);
+  const quickPointsDeclension = getWordDeclension(quickPoints, Numeral.SHORTS);
+  const mistakesDeclension = getWordDeclension(mistakes, Numeral.MISTAKES);
 
   return `За ${minutes} ${minutesDeclension} и ${seconds} ${secondsDeclension}<br>вы набрали ${points} ${pointsDeclension} (${quickPoints} ${quickPointsDeclension})<br>совершив ${mistakes} ${mistakesDeclension}`.trim();
 };

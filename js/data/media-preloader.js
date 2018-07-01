@@ -33,14 +33,10 @@ export default class MediaPreloader {
     });
   }
 
-  static onError(error) {
-    Application.showError(error);
-  }
-
   addLoaders() {
     this.getCollections();
-    this.createPreloadLinks(this.pictures, `image`);
     this.createPreloadLinks(this.tracks, `audio`);
+    this.createPreloadLinks(this.pictures, `image`);
 
     const links = this.tracks;
     const loaders = [];
@@ -57,5 +53,9 @@ export default class MediaPreloader {
     });
 
     return loaders;
+  }
+
+  static onError(error) {
+    Application.showError(error);
   }
 }

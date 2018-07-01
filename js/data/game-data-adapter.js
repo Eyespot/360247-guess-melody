@@ -7,7 +7,7 @@ const convertAnswers = (level, answers) => answers.map((answer) => {
 
   if (level.type === GameType.ARTIST) {
     const artist = answer.title;
-    const image = answer.image.url.split(`?`)[0];
+    const image = answer.image.url;
     const isCorrect = answer.isCorrect;
 
     return {artist, image, isCorrect};
@@ -20,18 +20,18 @@ const convertAnswers = (level, answers) => answers.map((answer) => {
 });
 
 export const adaptServerData = (data) => {
-  const newData = [];
+  const gameData = [];
   data.forEach((level, index) => {
-    newData.push({});
-    newData[index].gameType = level.type;
-    newData[index].question = level.question;
-    newData[index].options = convertAnswers(level, level.answers);
+    gameData.push({});
+    gameData[index].gameType = level.type;
+    gameData[index].question = level.question;
+    gameData[index].options = convertAnswers(level, level.answers);
 
     if (level.type === GameType.ARTIST) {
-      newData[index].source = level.src;
+      gameData[index].source = level.src;
     } else {
-      newData[index].correctAnswer = level.genre;
+      gameData[index].correctAnswer = level.genre;
     }
   });
-  return newData;
+  return gameData;
 };

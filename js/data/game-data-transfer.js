@@ -1,4 +1,4 @@
-const TransferSettings = {
+const TransferSetup = {
   SERVER_URL: `https://es.dump.academy/guess-melody`,
   APP_ID: 36027798798
 };
@@ -15,7 +15,7 @@ const convertToJSON = (response) => response.json();
 
 export default class GameDataTransfer {
   static loadData() {
-    return fetch(`${TransferSettings.SERVER_URL}/questions`).then(checkStatus).then(convertToJSON);
+    return fetch(`${TransferSetup.SERVER_URL}/questions`).then(checkStatus).then(convertToJSON);
   }
 
   static uploadStatistics(data) {
@@ -26,10 +26,10 @@ export default class GameDataTransfer {
       },
       method: `POST`
     };
-    return fetch(`${TransferSettings.SERVER_URL}/stats/${TransferSettings.APP_ID}`, requestSettings).then(checkStatus);
+    return fetch(`${TransferSetup.SERVER_URL}/stats/${TransferSetup.APP_ID}`, requestSettings).then(checkStatus);
   }
 
   static downloadStatistics() {
-    return fetch(`${TransferSettings.SERVER_URL}/stats/${TransferSettings.APP_ID}`).then(checkStatus).then(convertToJSON);
+    return fetch(`${TransferSetup.SERVER_URL}/stats/${TransferSetup.APP_ID}`).then(checkStatus).then(convertToJSON);
   }
 }
