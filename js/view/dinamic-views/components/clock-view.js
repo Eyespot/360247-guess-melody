@@ -16,11 +16,8 @@ export default class ClockView extends AbstractView {
     return (value < 10) ? `0` + value : value;
   }
 
-  getShortTimeAnimation() {
-    if (this.timeInSeconds < 30) {
-      return SHORT_TIME_STYLE;
-    }
-    return ``;
+  get timeStyle() {
+    return (this.timeInSeconds < 30) ? SHORT_TIME_STYLE : ``;
   }
 
   get template() {
@@ -30,7 +27,7 @@ export default class ClockView extends AbstractView {
         class="timer-line"
         style="filter: url(#blur); transform: rotate(-90deg) scaleY(-1); transform-origin: center" stroke-dasharray="${this.circleFace.stroke}" stroke-dashoffset="${this.circleFace.offset}"></circle>
 
-      <div ${this.getShortTimeAnimation()} class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
+      <div ${this.timeStyle} class="timer-value" xmlns="http://www.w3.org/1999/xhtml">
         <span class="timer-value-mins ">${this.reflectTime(this.timeInMinutes.minutes)}</span>
         <span class="timer-value-dots">:</span>
         <span class="timer-value-secs">${this.reflectTime(this.timeInMinutes.seconds)}</span>

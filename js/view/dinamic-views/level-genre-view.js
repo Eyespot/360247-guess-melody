@@ -79,7 +79,7 @@ export default class GenreView extends ApplicationView {
     });
     this.firstTrack = this.tracks[0];
     this.firstPlayButton = this.playerButtons[0];
-    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+    this.firstTrack.oncanplay = () => this.firstTrack.play();
     this.playingTrack = this.firstTrack;
     this.playingTrackButton = this.firstPlayButton;
     this.firstPlayButton.classList.add(`player-control--pause`);

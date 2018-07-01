@@ -67,7 +67,7 @@ export default class ArtistLevelView extends ApplicationView {
     });
 
     this.firstTrack = this.element.querySelector(`audio`);
-    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+    this.firstTrack.oncanplay = () => this.firstTrack.play();
 
     this.playerButton = this.element.querySelector(`button`);
     this.playerButton.addEventListener(`click`, () => {

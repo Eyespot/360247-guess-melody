@@ -1,3 +1,5 @@
+import Application from "../basis/application";
+
 export default class MediaPreloader {
   constructor(data) {
     this.data = data;
@@ -22,43 +24,38 @@ export default class MediaPreloader {
   }
 
   createPreloadLinks(collection, type) {
-    const links = [];
     collection.forEach((item) => {
       const preloadLink = document.createElement(`link`);
       preloadLink.href = item;
       preloadLink.rel = `preload`;
       preloadLink.as = type;
       document.head.appendChild(preloadLink);
-      links.push(preloadLink);
     });
   }
 
-  appendPreloadLinks() {
-    this.getCollections();
-    this.createPreloadLinks(this.tracks, `audio`);
-    this.createPreloadLinks(this.pictures, `image`);
+  static onError(error) {
+    Application.showError(error);
   }
 
-  // addLoaders() {
-  //   this.getCollections();
-  //   // this.appendPreloadLinks();
-  //   const links = this.tracks;
-  //   const loaders = [];
-  //
-  //   links.forEach((link) => {
-  //     return loaders.push(new Promise((onSuccess, onError) => {
-  //       const audio = new Audio();
-  //       audio.addEventListener(`canplaythrough`, () => onSuccess(audio));
-  //       audio.onerror = () => {
-  //         onError(`Произошла ошибка при загрузке данных. Пожалуйста, перезагрузите страницу.`);
-  //       };
-  //       audio.src = link;
-  //     }));
-  //   });
-  //
-  //   // this.createPreloadLinks(this.tracks, `audio`);
-  //   this.createPreloadLinks(this.pictures, `image`);
-  //
-  //   return loaders;
-  // }
+  addLoaders() {
+    this.getCollections();
+    this.createPreloadLinks(this.pictures, `image`);
+    this.createPreloadLinks(this.tracks, `audio`);
+
+    const links = this.tracks;
+    const loaders = [];
+
+    links.forEach((link) => {
+      return loaders.push(new Promise((onSuccess) => {
+        const audio = new Audio();
+        audio.addEventListener(`canplay`, () => onSuccess(audio));
+        audio.onerror = () => {
+          MediaPreloader.onError(`Произошла ошибка при загрузке данных`);
+        };
+        audio.src = link;
+      }));
+    });
+
+    return loaders;
+  }
 }

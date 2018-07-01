@@ -28,14 +28,11 @@ class Application {
         gameData = data;
         const model = new GameModel(gameData);
         const welcome = new WelcomePresenter(model);
-        new MediaPreloader(gameData).appendPreloadLinks();
+        const media = new MediaPreloader(gameData);
+        const links = media.addLoaders();
 
-        setTimeout(() => {
-          welcome.showScreen();
-        }, 250);
-
-        // Promise.all(links).then(() => welcome.showScreen());
-      }).catch(Application.showError);
+        Promise.all(links).then(() => welcome.showScreen());
+      }).catch(MediaPreloader.onError);
   }
 
   static replay() {
@@ -81,7 +78,7 @@ class Application {
 
   static showError(error) {
     const errorView = new ModalErrorView(error);
-    errorView.showModal();
+    errorView.showModal(error);
   }
 
   static showModal(stopGame) {
