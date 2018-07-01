@@ -16,13 +16,4 @@ export default class PreloadView extends ApplicationView {
     </section>
     `;
   }
-
-  onWindowLoad() {
-  }
-
-  bind() {
-    window.onload = () => {
-      // this.onWindowLoad();
-    };
-  }
 }

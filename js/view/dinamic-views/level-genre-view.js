@@ -77,11 +77,13 @@ export default class GenreView extends ApplicationView {
         this.onPlayerButtonClick(event);
       });
     });
-    this.firstTrack = this.tracks[0];
-    this.firstPlayButton = this.playerButtons[0];
-    this.firstTrack.oncanplay = () => this.firstTrack.play();
-    this.playingTrack = this.firstTrack;
-    this.playingTrackButton = this.firstPlayButton;
-    this.firstPlayButton.classList.add(`player-control--pause`);
+    this.playingTrack = this.tracks[0];
+    this.playingTrackButton = this.playerButtons[0];
+    this.playingTrack.oncanplay = () => {
+      this.playingTrack.play().catch(() => {
+        Application.showError(`Произошел сбой обработки аудио`);
+      });
+    };
+    this.playingTrackButton.classList.add(`player-control--pause`);
   }
 }

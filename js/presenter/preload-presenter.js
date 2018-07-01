@@ -1,6 +1,5 @@
 import PreloadView from "../view/static-views/preload-view";
 import GamePresenter from "../presenter/game-presenter";
-import Application from "../basis/application";
 
 export default class PreloadPresenter extends GamePresenter {
   constructor() {
@@ -14,9 +13,5 @@ export default class PreloadPresenter extends GamePresenter {
 
   get element() {
     return this.root;
-  }
-
-  onWindowLoad() {
-    Application.showWelcome();
   }
 }

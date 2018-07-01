@@ -1,8 +1,6 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
 import gameSettings from "./game-settings";
 
-// const getLevel = (state) => gameData[state.screen];
-
 export default class GameModel {
   constructor(data) {
     this.data = data;

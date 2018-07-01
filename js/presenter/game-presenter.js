@@ -37,6 +37,10 @@ export default class GamePresenter {
     clearTimeout(this._period);
     const timerEndTime = this.model.state.timer.time;
     this.answerTime = this.timerStartTime - timerEndTime;
+
+    if (this.view.playingTrack) {
+      this.view.playingTrack.pause();
+    }
   }
 
   showScreen() {
