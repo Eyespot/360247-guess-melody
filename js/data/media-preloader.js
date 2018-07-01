@@ -35,8 +35,8 @@ export default class MediaPreloader {
 
   addLoaders() {
     this.getCollections();
-    // this.createPreloadLinks(this.tracks, `audio`);
-    // this.createPreloadLinks(this.pictures, `image`);
+    this.createPreloadLinks(this.tracks, `audio`);
+    this.createPreloadLinks(this.pictures, `image`);
 
     const links = this.tracks;
     const loaders = [];
@@ -44,7 +44,7 @@ export default class MediaPreloader {
     links.forEach((link) => {
       return loaders.push(new Promise((onSuccess) => {
         const audio = new Audio();
-        audio.addEventListener(`loadeddata`, () => onSuccess(audio));
+        audio.addEventListener(`canplaythrough`, () => onSuccess(audio));
         audio.onerror = () => {
           MediaPreloader.onError(`Произошла ошибка при загрузке данных`);
         };
