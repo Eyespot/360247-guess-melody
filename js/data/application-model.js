@@ -1,5 +1,5 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
-import gameSettings from "./game-settings";
+import GameSetting from "./game-setting";
 
 export default class ApplicationModel {
   constructor(data) {
@@ -35,7 +35,7 @@ export default class ApplicationModel {
   }
 
   get isGameFinished() {
-    return this._state.screen >= gameSettings.LEVELS_QUANTITY;
+    return this._state.screen >= GameSetting.LEVELS_QUANTITY;
   }
 
   get canTheGameContinue() {

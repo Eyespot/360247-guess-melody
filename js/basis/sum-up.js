@@ -1,4 +1,4 @@
-import gameSettings from "../data/game-settings";
+import GameSetting from "../data/game-setting";
 import reflectResult from "./reflect-game-result";
 import {calculateMinutes, getWordDeclension, Numeral} from "./utils";
 
@@ -15,12 +15,12 @@ export const summarizePoints = (state) => {
   let points = 0;
   for (const answer of state.answers) {
     if (answer.isCorrect) {
-      points += answer.isFast ? gameSettings.CORRECT_FAST_ANSWER_POINTS : gameSettings.CORRECT_ANSWER_POINTS;
+      points += answer.isFast ? GameSetting.CORRECT_FAST_ANSWER_POINTS : GameSetting.CORRECT_ANSWER_POINTS;
       if (answer.isFast) {
         state.outcome.quickPointsReceived++;
       }
     } else {
-      points -= gameSettings.MISTAKE_PENALTY;
+      points -= GameSetting.MISTAKE_PENALTY;
     }
   }
 
@@ -31,8 +31,8 @@ export const getFinalResult = (state) => {
   const points = summarizePoints(state);
   state.outcome.timeLeft = state.timer.time;
   state.outcome.pointsReceived = points;
-  state.outcome.mistakes = gameSettings.ATTEMPTS - state.lives;
-  state.timeSpend = calculateMinutes(gameSettings.START_TIME - state.timer.time);
+  state.outcome.mistakes = GameSetting.ATTEMPTS - state.lives;
+  state.timeSpend = calculateMinutes(GameSetting.START_TIME - state.timer.time);
 
   state.currentStatistics = getCurrentStatistics(state);
 

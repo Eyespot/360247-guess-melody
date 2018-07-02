@@ -1,4 +1,4 @@
-import gameSettings from "../data/game-settings";
+import GameSetting from "../data/game-setting";
 
 const TICKER_SIZE = 1;
 const CIRCLE_RADIUS = 370;
@@ -28,7 +28,7 @@ export const createTimer = (startTime) => {
 
 export const getCircleFace = (time) => {
   const stroke = Math.round(2 * Math.PI * CIRCLE_RADIUS);
-  const offset = stroke - Math.round(stroke * (time / gameSettings.START_TIME));
+  const offset = stroke - Math.round(stroke * (time / GameSetting.START_TIME));
 
   return {stroke, offset};
 };
