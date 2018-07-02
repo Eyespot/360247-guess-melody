@@ -1,4 +1,4 @@
-import gameSettings from "../data/game-settings";
+import GameSetting from "../data/game-setting";
 import ClockView from "../view/dinamic-views/components/clock-view";
 import Application from "../basis/application";
 
@@ -49,7 +49,7 @@ export default class ApplicationPresenter {
   }
 
   getAnswerSpeed(answerTime) {
-    return (answerTime < gameSettings.FAST_ANSWER);
+    return (answerTime < GameSetting.FAST_ANSWER);
   }
 
   renderClock() {
@@ -67,7 +67,7 @@ export default class ApplicationPresenter {
   }
 
   reflectCorrectAnswerOnDevelopment(inputs, labels, key, styles) {
-    if (gameSettings.IS_DEVELOPMENT_MODE) {
+    if (GameSetting.IS_DEVELOPMENT_MODE) {
       const answers = Array.from(inputs);
       for (const input of answers) {
         if (input.value === key) {

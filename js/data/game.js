@@ -1,10 +1,10 @@
-import gameSettings from "./game-settings";
+import GameSetting from "./game-setting";
 import {createTimer} from "../basis/timer";
 
 export default Object.freeze({
-  lives: gameSettings.ATTEMPTS,
-  timer: createTimer(gameSettings.START_TIME),
-  screen: gameSettings.START_SCREEN
+  lives: GameSetting.ATTEMPTS,
+  timer: createTimer(GameSetting.START_TIME),
+  screen: GameSetting.START_SCREEN
 });
 
 export const updateScreen = (game) => {
