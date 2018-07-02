@@ -1,3 +1,5 @@
+import GameSetting from "../data/game-setting";
+
 const SECONDS_IN_ONE_MINUTE = 60;
 
 export const calculateMinutes = (time) => {
@@ -27,3 +29,29 @@ export const Numeral = Object.freeze(
       MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
     }
 );
+
+export const getCurrentStatistics = (state) => {
+  return {
+    pointsReceived: state.outcome.pointsReceived,
+    livesLeft: state.lives,
+    timeLeft: state.timer.time
+  };
+};
+
+export const summarizePoints = (state) => {
+
+  let points = 0;
+
+  for (const answer of state.answers) {
+    if (answer.isCorrect) {
+      points += answer.isFast ? GameSetting.CORRECT_FAST_ANSWER_POINTS : GameSetting.CORRECT_ANSWER_POINTS;
+      if (answer.isFast) {
+        state.outcome.quickPointsReceived++;
+      }
+    } else {
+      points -= GameSetting.MISTAKE_PENALTY;
+    }
+  }
+
+  return points;
+};

@@ -11,6 +11,7 @@ import ModalConfirmationView from "../view/dinamic-views/components/modal-confir
 import GameDataTransfer from "../data/game-data-transfer";
 import {adaptServerData} from "../data/game-data-adapter";
 import MediaPreloader from "../data/media-preloader";
+import {getCurrentStatistics, summarizePoints} from "./utils";
 
 const ESC_KEYCODE = 27;
 
@@ -62,13 +63,15 @@ class Application {
   }
 
   static showWin(model) {
-    GameDataTransfer.downloadStatistics().then((statistics) => {
-      model.state.gamesStatistics = statistics;
-      const winScreen = new ResultWinPresenter(model);
-      winScreen.showScreen();
-    }).then(() => {
-      GameDataTransfer.uploadStatistics(model.state.currentStatistics);
-    }).catch(Application.showError);
+    model.state.outcome.pointsReceived = summarizePoints(model.state);
+    model.state.currentStatistics = getCurrentStatistics(model.state);
+    GameDataTransfer.uploadStatistics(model.state.currentStatistics)
+      .then(() => GameDataTransfer.downloadStatistics())
+      .then((statistics) => {
+        model.state.gamesStatistics = statistics;
+        const winScreen = new ResultWinPresenter(model);
+        winScreen.showScreen();
+      }).catch(Application.showError);
   }
 
   static showTimeout() {
