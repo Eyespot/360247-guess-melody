@@ -1,8 +1,13 @@
 export default (statistics, currentResult) => {
 
-  statistics.push(currentResult);
   statistics.sort(compareStatistics);
-  const currentPlace = statistics.indexOf(currentResult) + 1;
+
+  let currentPlace = 0;
+  statistics.forEach((result) => {
+    if (result.pointsReceived === currentResult.pointsReceived && result.livesLeft === currentResult.livesLeft && result.timeLeft === currentResult.timeLeft) {
+      currentPlace = statistics.indexOf(result) + 1;
+    }
+  });
   const competitorsQuantity = statistics.length;
   const beatenPercent = Math.floor((competitorsQuantity - currentPlace) / competitorsQuantity * 100);
   const declensionOfGamers = (competitorsQuantity > 1) ? `игроков` : `игрока`;
