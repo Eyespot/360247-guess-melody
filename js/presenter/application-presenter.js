@@ -6,7 +6,7 @@ const PLAYING_BUTTON_SELECTOR = `player-control--pause`;
 
 let currentScreen = document.querySelector(`section.main`);
 
-export default class GamePresenter {
+export default class ApplicationPresenter {
   constructor(model) {
     this.model = model;
   }
@@ -37,6 +37,10 @@ export default class GamePresenter {
     clearTimeout(this._period);
     const timerEndTime = this.model.state.timer.time;
     this.answerTime = this.timerStartTime - timerEndTime;
+
+    if (this.view.playingTrack) {
+      this.view.playingTrack.pause();
+    }
   }
 
   showScreen() {
@@ -114,10 +118,16 @@ export default class GamePresenter {
         this.playingTrackButton.classList.remove(PLAYING_BUTTON_SELECTOR);
         this.playingTrack.pause();
       }
-      target.classList.add(PLAYING_BUTTON_SELECTOR);
-      track.play();
-      this.playingTrack = track;
-      this.playingTrackButton = target;
+
+      const playPromise = track.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          target.classList.add(PLAYING_BUTTON_SELECTOR);
+          this.playingTrack = track;
+          this.playingTrackButton = target;
+        }).catch(() => {});
+      }
     }
   }
 }

@@ -49,11 +49,11 @@ export default class GenreView extends ApplicationView {
 
   bind() {
     const gameRestartButton = this.element.querySelector(`.play-again`);
-    gameRestartButton.onclick = (event) => {
+    gameRestartButton.addEventListener(`click`, (event) => {
+      event.stopPropagation();
       event.preventDefault();
-      this.stopGame();
-      Application.showWelcome();
-    };
+      Application.showModal(this.stopGame);
+    });
 
     this.genreForm = this.element.querySelector(`.genre`);
     this.genreForm.addEventListener(`change`, () => {
@@ -77,11 +77,13 @@ export default class GenreView extends ApplicationView {
         this.onPlayerButtonClick(event);
       });
     });
-    this.firstTrack = this.tracks[0];
-    this.firstPlayButton = this.playerButtons[0];
-    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
-    this.playingTrack = this.firstTrack;
-    this.playingTrackButton = this.firstPlayButton;
-    this.firstPlayButton.classList.add(`player-control--pause`);
+    this.playingTrack = this.tracks[0];
+    this.playingTrackButton = this.playerButtons[0];
+    this.playingTrack.oncanplay = () => {
+      this.playingTrack.play().catch(() => {
+        Application.showError(`Произошел сбой обработки аудио`);
+      });
+    };
+    this.playingTrackButton.classList.add(`player-control--pause`);
   }
 }

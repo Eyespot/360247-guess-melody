@@ -1,9 +1,7 @@
 import initialGameState, {updateScreen, loseLife, setAnswer} from "./game";
-// import gameData from "./game-data";
+import gameSettings from "./game-settings";
 
-// const getLevel = (state) => gameData[state.screen];
-
-export default class GameModel {
+export default class ApplicationModel {
   constructor(data) {
     this.data = data;
     this.restart();
@@ -12,16 +10,12 @@ export default class GameModel {
   restart() {
     this._state = Object.assign({}, initialGameState);
     this._state.answers = [];
+    this._state.gamesStatistics = [];
     this._state.outcome = {
-      timeSpend: {},
       pointsReceived: 0,
       quickPointsReceived: 0,
       mistakes: 0
     };
-  }
-
-  getLevel(state) {
-    return this.data[state.screen];
   }
 
   get state() {
@@ -29,7 +23,7 @@ export default class GameModel {
   }
 
   get gameType() {
-    return this.getLevel(this._state).gameType;
+    return this._getLevel(this._state).gameType;
   }
 
   get isGameLost() {
@@ -41,11 +35,19 @@ export default class GameModel {
   }
 
   get isGameFinished() {
-    return this._state.screen >= this.data.length;
+    return this._state.screen >= gameSettings.LEVELS_QUANTITY;
   }
 
   get canTheGameContinue() {
     return !this.isGameLost && !this.isGameFinished && !this.isGameTimeout;
+  }
+
+  setAnswer(answer) {
+    this._state = setAnswer(this._state, answer);
+  }
+
+  _getLevel(state) {
+    return this.data[state.screen];
   }
 
   nextScreen() {
@@ -54,9 +56,5 @@ export default class GameModel {
 
   loseLife() {
     this._state = loseLife(this._state);
-  }
-
-  setAnswer(answer) {
-    this._state = setAnswer(this._state, answer);
   }
 }

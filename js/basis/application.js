@@ -5,51 +5,43 @@ import ResultNoAttemptsPresenter from "../presenter/result-no-attempts-presenter
 import ResultWinPresenter from "../presenter/result-win-presenter";
 import WelcomePresenter from "../presenter/welcome-presenter";
 import PreloadPresenter from "../presenter/preload-presenter";
-import GameModel from "../data/game-model";
+import ApplicationModel from "../data/application-model";
 import ErrorView from "../view/dinamic-views/components/error-view";
+import ModalConfirmationView from "../view/dinamic-views/components/modal-confirmation-view";
+import GameDataTransfer from "../data/game-data-transfer";
 import {adaptServerData} from "../data/game-data-adapter";
-import preloadMedia from "../data/preload-media";
+import MediaPreloader from "../data/media-preloader";
 
-const checkStatus = (response) => {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  } else {
-    throw new Error(`${response.status}: ${response.statusText}`);
-  }
-};
+const ESC_KEYCODE = 27;
 
 let gameData;
 
 class Application {
 
-  static showPreload() {
+  static showStart() {
     const preload = new PreloadPresenter();
     preload.showScreen();
-    window.fetch(`https://es.dump.academy/guess-melody/questions`)
-      .then(checkStatus)
-      .then((response) => response.json())
+
+    GameDataTransfer.loadData()
       .then((data) => adaptServerData(data))
       .then((data) => {
         gameData = data;
-      })
-      .then(() => preloadMedia(gameData))
-      .then(() => Application.showWelcome())
-      .catch(Application.showError);
-  }
+        const model = new ApplicationModel(gameData);
+        const welcome = new WelcomePresenter(model);
+        const media = new MediaPreloader(gameData);
+        const links = media.addLoaders();
 
-  static showWelcome() {
-    const model = new GameModel(gameData);
-    const welcome = new WelcomePresenter(model);
-    welcome.showScreen();
+        Promise.all(links).then(() => welcome.showScreen());
+      }).catch(MediaPreloader.onError);
   }
 
   static replay() {
-    const model = new GameModel(gameData);
+    const model = new ApplicationModel(gameData);
     this.chooseGame(model);
   }
 
   static chooseGame(model) {
-    gameSelector[model.gameType](model);
+    GameSelector[model.gameType](model);
   }
 
   static showArtist(model) {
@@ -70,8 +62,13 @@ class Application {
   }
 
   static showWin(model) {
-    const winScreen = new ResultWinPresenter(model);
-    winScreen.showScreen();
+    GameDataTransfer.downloadStatistics().then((statistics) => {
+      model.state.gamesStatistics = statistics;
+      const winScreen = new ResultWinPresenter(model);
+      winScreen.showScreen();
+    }).then(() => {
+      GameDataTransfer.uploadStatistics(model.state.currentStatistics);
+    }).catch(Application.showError);
   }
 
   static showTimeout() {
@@ -81,11 +78,24 @@ class Application {
 
   static showError(error) {
     const errorView = new ErrorView(error);
-    errorView.showModal();
+    errorView.showModal(error);
+  }
+
+  static showModal(stopGame) {
+    const modalConfirmation = new ModalConfirmationView();
+    const modalElement = modalConfirmation.element;
+    modalConfirmation.stopGame = stopGame;
+    modalConfirmation.onEscClose = (event) => {
+      if (event.keyCode === ESC_KEYCODE) {
+        modalConfirmation.onClose();
+      }
+    };
+    document.addEventListener(`keydown`, modalConfirmation.onEscClose);
+    document.body.appendChild(modalElement);
   }
 }
 
-const gameSelector = {
+const GameSelector = {
   'artist': Application.showArtist,
   'genre': Application.showGenre
 };

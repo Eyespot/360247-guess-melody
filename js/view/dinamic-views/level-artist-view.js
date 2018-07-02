@@ -60,14 +60,18 @@ export default class ArtistLevelView extends ApplicationView {
     });
 
     const gameRestartButton = this.element.querySelector(`.play-again`);
-    gameRestartButton.onclick = (event) => {
+    gameRestartButton.addEventListener(`click`, (event) => {
+      event.stopPropagation();
       event.preventDefault();
-      this.stopGame();
-      Application.showWelcome();
-    };
+      Application.showModal(this.stopGame);
+    });
 
-    this.firstTrack = this.element.querySelector(`audio`);
-    this.firstTrack.oncanplaythrough = () => this.firstTrack.play();
+    this.playingTrack = this.element.querySelector(`audio`);
+    this.playingTrack.oncanplay = () => {
+      this.playingTrack.play().catch(() => {
+        Application.showError(`Произошел сбой обработки аудио`);
+      });
+    };
 
     this.playerButton = this.element.querySelector(`button`);
     this.playerButton.addEventListener(`click`, () => {

@@ -1,12 +1,5 @@
 const SECONDS_IN_ONE_MINUTE = 60;
 
-export const getRandomInteger = (min, max) => {
-  let random = min + Math.random() * (max + 1 - min);
-  random = Math.floor(random);
-
-  return random;
-};
-
 export const calculateMinutes = (time) => {
   const minutes = Math.floor(time / SECONDS_IN_ONE_MINUTE);
   const seconds = time % SECONDS_IN_ONE_MINUTE;
@@ -24,3 +17,13 @@ export const createTemplateElement = (segment = ``) => {
   template.innerHTML = segment.trim();
   return template.content;
 };
+
+export const Numeral = Object.freeze(
+    {
+      MINUTES: [`минуту`, `минуты`, `минут`],
+      SECONDS: [`секунду`, `секунды`, `секунд`],
+      POINTS: [`балл`, `балла`, `баллов`],
+      SHORTS: [`быстрый`, `быстрых`, `быстрых`],
+      MISTAKES: [`ошибку`, `ошибки`, `ошибок`]
+    }
+);
