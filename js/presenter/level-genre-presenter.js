@@ -22,7 +22,7 @@ export default class LevelGenrePresenter extends ApplicationPresenter {
 
     this.view.genreFormCheckboxes = this.view.genreForm.querySelectorAll(`input[type=checkbox]`);
     this.view.labels = this.view.genreForm.querySelectorAll(`.genre-answer-check`);
-    this.reflectCorrectAnswerOnDevelopment(this.view.genreFormCheckboxes, this.view.labels, level.correctAnswer, `background-color:lightgreen;border-radius:5px`);
+    ApplicationPresenter.reflectCorrectAnswerOnDevelopment(this.view.genreFormCheckboxes, this.view.labels, level.correctAnswer, `background-color:lightgreen;border-radius:5px`);
     this.view.onGenreAnswerChange = this.onGenreAnswerChange.bind(this);
 
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, this.mistakes.template);
