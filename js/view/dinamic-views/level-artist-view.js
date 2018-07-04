@@ -68,9 +68,11 @@ export default class ArtistLevelView extends ApplicationView {
 
     this.playingTrack = this.element.querySelector(`audio`);
     this.playingTrack.oncanplay = () => {
-      this.playingTrack.play().catch(() => {
-        Application.showError(`Произошел сбой обработки аудио`);
-      });
+      if (this.playingTrack) {
+        this.playingTrack.play().catch(() => {
+          Application.showError(`Произошел сбой обработки аудио`);
+        });
+      }
     };
 
     this.playerButton = this.element.querySelector(`button`);

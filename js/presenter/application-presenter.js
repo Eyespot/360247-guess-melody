@@ -104,13 +104,15 @@ export default class ApplicationPresenter {
         this.playingTrack.pause();
       }
 
+      target.classList.add(PLAYING_BUTTON_SELECTOR);
+      this.playingTrack = track;
+      this.playingTrackButton = target;
+
       const playPromise = track.play();
 
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          target.classList.add(PLAYING_BUTTON_SELECTOR);
-          this.playingTrack = track;
-          this.playingTrackButton = target;
+
         }).catch(() => {});
       }
     }
