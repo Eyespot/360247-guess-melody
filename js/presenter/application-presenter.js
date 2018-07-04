@@ -48,10 +48,6 @@ export default class ApplicationPresenter {
     currentScreen = this.root;
   }
 
-  getAnswerSpeed(answerTime) {
-    return (answerTime < GameSetting.FAST_ANSWER);
-  }
-
   renderClock() {
     const time = this.model.state.timer.time;
     const newClock = new ClockView(time);
@@ -64,17 +60,6 @@ export default class ApplicationPresenter {
     }
 
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, newClock.template);
-  }
-
-  reflectCorrectAnswerOnDevelopment(inputs, labels, key, styles) {
-    if (GameSetting.IS_DEVELOPMENT_MODE) {
-      const answers = Array.from(inputs);
-      for (const input of answers) {
-        if (input.value === key) {
-          labels[answers.indexOf(input)].setAttribute(`style`, styles);
-        }
-      }
-    }
   }
 
   progressOnAnswer() {
@@ -90,10 +75,15 @@ export default class ApplicationPresenter {
 
       this.model.setAnswer({
         isCorrect: this.isAnswerCorrect,
-        isFast: this.getAnswerSpeed(this.answerTime)
+        isFast: ApplicationPresenter.getAnswerSpeed(this.answerTime)
       });
 
       if (this.model.isGameFinished) {
+        if (this.view.level.gameType === `artist`) {
+          this.view.answersList.removeEventListener(`click`, this.view.onAnswer);
+        } else {
+          this.view.genreFormSubmit.disabled = true;
+        }
         Application.showWin(this.model);
       }
 
@@ -119,14 +109,31 @@ export default class ApplicationPresenter {
         this.playingTrack.pause();
       }
 
+      target.classList.add(PLAYING_BUTTON_SELECTOR);
+      this.playingTrack = track;
+      this.playingTrackButton = target;
+
       const playPromise = track.play();
 
       if (playPromise !== undefined) {
         playPromise.then(() => {
-          target.classList.add(PLAYING_BUTTON_SELECTOR);
-          this.playingTrack = track;
-          this.playingTrackButton = target;
+
         }).catch(() => {});
+      }
+    }
+  }
+
+  static getAnswerSpeed(answerTime) {
+    return (answerTime < GameSetting.FAST_ANSWER);
+  }
+
+  static reflectCorrectAnswerOnDevelopment(inputs, labels, key, styles) {
+    if (GameSetting.IS_DEVELOPMENT_MODE) {
+      const answers = Array.from(inputs);
+      for (const input of answers) {
+        if (input.value === key) {
+          labels[answers.indexOf(input)].setAttribute(`style`, styles);
+        }
       }
     }
   }

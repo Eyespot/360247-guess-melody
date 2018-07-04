@@ -11,12 +11,11 @@ const convertAnswers = (level, answers) => answers.map((answer) => {
     const isCorrect = answer.isCorrect;
 
     return {artist, image, isCorrect};
-  } else {
-    const source = answer.src;
-    const genre = answer.genre;
-
-    return {source, genre};
   }
+  const source = answer.src;
+  const genre = answer.genre;
+
+  return {source, genre};
 });
 
 export const adaptServerData = (data) => {

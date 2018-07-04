@@ -10,7 +10,7 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
     this.level = level;
 
     this.view = new ArtistLevelView(this.level);
-    this.view.catchAnswerTargetValue = this.catchAnswerTargetValue;
+    this.view.onArtistAnswerClick = this.onArtistAnswerClick;
     this.view.stopGame = this.stopGame.bind(this);
     this.view.onAnswer = this.onArtistAnswer.bind(this);
     this.view.onPlayerButtonClick = this.onPlayerButtonClick;
@@ -18,17 +18,15 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
 
     this.view.radio = this.view.element.querySelectorAll(`.main-answer-r`);
     this.view.labels = this.view.element.querySelectorAll(`.main-answer`);
-    this.reflectCorrectAnswerOnDevelopment(this.view.radio, this.view.labels, `true`, `font-weight:900;background-color:lightgreen;border-radius:15px`);
+    ApplicationPresenter.reflectCorrectAnswerOnDevelopment(this.view.radio, this.view.labels, `true`, `font-weight:900;background-color:lightgreen;border-radius:15px`);
 
     this.root = this.view.element.firstElementChild;
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, this.mistakes.template);
   }
 
-  catchAnswerTargetValue(event) {
-    return event.target.parentNode.previousElementSibling;
-  }
-
-  onArtistAnswer(event, answer) {
+  onArtistAnswer(event) {
+    event.preventDefault();
+    const answer = event.target.parentNode.previousElementSibling;
 
     const answersMap = {
       0: this.level.options[0].isCorrect,

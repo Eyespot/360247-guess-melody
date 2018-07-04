@@ -1,6 +1,6 @@
 const TransferSetup = {
   SERVER_URL: `https://es.dump.academy/guess-melody`,
-  APP_ID: 360277
+  APP_ID: 360247
 };
 
 const checkStatus = (response) => {

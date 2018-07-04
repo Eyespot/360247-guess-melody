@@ -42,9 +42,6 @@ export default class ArtistLevelView extends ApplicationView {
   stopGame() {
   }
 
-  catchAnswerTargetValue() {
-  }
-
   onAnswer() {
   }
 
@@ -52,12 +49,8 @@ export default class ArtistLevelView extends ApplicationView {
   }
 
   bind() {
-    const answersList = this.element.querySelector(`.main-list`);
-    answersList.addEventListener(`click`, (event) => {
-      event.preventDefault();
-      const answer = this.catchAnswerTargetValue(event);
-      this.onAnswer(event, answer);
-    });
+    this.answersList = this.element.querySelector(`.main-list`);
+    this.answersList.addEventListener(`click`, this.onAnswer);
 
     const gameRestartButton = this.element.querySelector(`.play-again`);
     gameRestartButton.addEventListener(`click`, (event) => {
@@ -68,13 +61,15 @@ export default class ArtistLevelView extends ApplicationView {
 
     this.playingTrack = this.element.querySelector(`audio`);
     this.playingTrack.oncanplay = () => {
-      this.playingTrack.play().catch(() => {
-        Application.showError(`Произошел сбой обработки аудио`);
-      });
+      if (this.playingTrack) {
+        this.playingTrack.play().catch(() => {
+          Application.showError(`Произошел сбой обработки аудио`);
+        });
+      }
     };
 
     this.playerButton = this.element.querySelector(`button`);
-    this.playerButton.addEventListener(`click`, () => {
+    this.playerButton.addEventListener(`click`, (event) => {
       this.onPlayerButtonClick(event);
     });
   }
