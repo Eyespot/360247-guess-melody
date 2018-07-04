@@ -10,7 +10,7 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
     this.level = level;
 
     this.view = new ArtistLevelView(this.level);
-    this.view.catchAnswerTargetValue = LevelArtistPresenter.catchAnswerTargetValue;
+    this.view.onArtistAnswerClick = this.onArtistAnswerClick;
     this.view.stopGame = this.stopGame.bind(this);
     this.view.onAnswer = this.onArtistAnswer.bind(this);
     this.view.onPlayerButtonClick = this.onPlayerButtonClick;
@@ -24,7 +24,9 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
     this.root.firstElementChild.insertAdjacentHTML(`afterEnd`, this.mistakes.template);
   }
 
-  onArtistAnswer(event, answer) {
+  onArtistAnswer(event) {
+    event.preventDefault();
+    const answer = event.target.parentNode.previousElementSibling;
 
     const answersMap = {
       0: this.level.options[0].isCorrect,
@@ -36,9 +38,5 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
     this.isAnswerCorrect = answersMap[answerNumber];
 
     this.progressOnAnswer();
-  }
-
-  static catchAnswerTargetValue(event) {
-    return event.target.parentNode.previousElementSibling;
   }
 }

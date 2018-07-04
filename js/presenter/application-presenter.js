@@ -79,6 +79,11 @@ export default class ApplicationPresenter {
       });
 
       if (this.model.isGameFinished) {
+        if (this.view.level.gameType === `artist`) {
+          this.view.answersList.removeEventListener(`click`, this.view.onAnswer);
+        } else {
+          this.view.genreFormSubmit.disabled = true;
+        }
         Application.showWin(this.model);
       }
 

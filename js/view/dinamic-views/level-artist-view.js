@@ -42,9 +42,6 @@ export default class ArtistLevelView extends ApplicationView {
   stopGame() {
   }
 
-  catchAnswerTargetValue() {
-  }
-
   onAnswer() {
   }
 
@@ -52,12 +49,8 @@ export default class ArtistLevelView extends ApplicationView {
   }
 
   bind() {
-    const answersList = this.element.querySelector(`.main-list`);
-    answersList.addEventListener(`click`, (event) => {
-      event.preventDefault();
-      const answer = this.catchAnswerTargetValue(event);
-      this.onAnswer(event, answer);
-    });
+    this.answersList = this.element.querySelector(`.main-list`);
+    this.answersList.addEventListener(`click`, this.onAnswer);
 
     const gameRestartButton = this.element.querySelector(`.play-again`);
     gameRestartButton.addEventListener(`click`, (event) => {
