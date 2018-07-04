@@ -23,8 +23,8 @@ export default class MediaPreloader {
     });
   }
 
-  createPreloadLinks(preloads, type) {
-    preloads.forEach((item) => {
+  createPreloadLinks(links, type) {
+    links.forEach((item) => {
       const preloadLink = document.createElement(`link`);
       preloadLink.href = item;
       preloadLink.rel = `preload`;
