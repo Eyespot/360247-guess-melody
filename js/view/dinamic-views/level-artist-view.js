@@ -74,7 +74,7 @@ export default class ArtistLevelView extends ApplicationView {
     };
 
     this.playerButton = this.element.querySelector(`button`);
-    this.playerButton.addEventListener(`click`, () => {
+    this.playerButton.addEventListener(`click`, (event) => {
       this.onPlayerButtonClick(event);
     });
   }
