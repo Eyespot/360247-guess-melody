@@ -10,7 +10,6 @@ export default class LevelArtistPresenter extends ApplicationPresenter {
     this.level = level;
 
     this.view = new ArtistLevelView(this.level);
-    this.view.onArtistAnswerClick = this.onArtistAnswerClick;
     this.view.stopGame = this.stopGame.bind(this);
     this.view.onAnswer = this.onArtistAnswer.bind(this);
     this.view.onPlayerButtonClick = this.onPlayerButtonClick;
