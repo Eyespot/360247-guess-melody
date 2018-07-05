@@ -10,8 +10,8 @@ export default (statistics, currentResult) => {
     return index.pointsReceived === currentResult.pointsReceived && index.livesLeft === currentResult.livesLeft && index.timeLeft === currentResult.timeLeft;
   };
 
-  const currentPlace = statistics.length - statistics.findIndex(findSimilar);
   const competitorsQuantity = statistics.length;
+  const currentPlace = competitorsQuantity - statistics.findIndex(findSimilar);
   const beatenPercent = Math.floor((competitorsQuantity - currentPlace) / competitorsQuantity * 100);
   const declensionOfGamers = (competitorsQuantity > 1) ? `игроков` : `игрока`;
 
